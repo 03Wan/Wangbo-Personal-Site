@@ -15,7 +15,7 @@ export const content = {
   zh: {
     localeName: "中文",
     brand: "WANG BO",
-    nav: { home: "首页", about: "关于", projects: "项目", resume: "简历", contact: "联系" },
+    nav: { home: "首页", about: "关于", projects: "项目", works: "作品", resume: "简历", contact: "联系" },
     common: {
       viewProjects: "查看项目",
       viewResume: "个人简历",
@@ -131,7 +131,7 @@ export const content = {
   en: {
     localeName: "English",
     brand: "WANG BO",
-    nav: { home: "Home", about: "About", projects: "Projects", resume: "Resume", contact: "Contact" },
+    nav: { home: "Home", about: "About", projects: "Projects", works: "Works", resume: "Resume", contact: "Contact" },
     common: { viewProjects: "View projects", viewResume: "Resume", contactMe: "Contact me", downloadResume: "Download public resume", period: "Period", role: "Role", firstLead: "Project lead", readMore: "Learn more", current: "Current focus" },
     home: {
       eyebrow: "PERSONAL WEBSITE · NANJING",

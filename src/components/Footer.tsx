@@ -11,8 +11,9 @@ export function Footer({ locale, data }: { locale: Locale; data: SiteContent }) 
         </div>
         <div className="footer-links">
           <Link href={`/${locale}/projects`}>{data.nav.projects}</Link>
+          <Link href={`/${locale}/works`}>{data.nav.works}</Link>
           <Link href={`/${locale}/resume`}>{data.nav.resume}</Link>
-          <a href={data.shared.github} target="_blank" rel="noreferrer">GitHub ↗</a>
+          <a href={data.shared.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
         </div>
         <small>© {new Date().getFullYear()} Wang Bo. {data.footer.rights}</small>
       </div>

@@ -9,6 +9,7 @@ const routes = [
   { key: "home", path: "" },
   { key: "about", path: "/about" },
   { key: "projects", path: "/projects" },
+  { key: "works", path: "/works" },
   { key: "resume", path: "/resume" },
   { key: "contact", path: "/contact" },
 ] as const;
@@ -37,7 +38,7 @@ export function Header({ locale, nav, brand }: { locale: Locale; nav: SiteConten
         <nav id="primary-nav" className={`primary-nav ${open ? "is-open" : ""}`} aria-label={locale === "zh" ? "主导航" : "Primary navigation"}>
           {routes.map((route) => {
             const href = `/${locale}${route.path}`;
-            const active = pathname === href;
+            const active = route.path === "" ? pathname === href : pathname.startsWith(href);
             return <Link key={route.key} href={href} className={active ? "active" : undefined} onClick={() => setOpen(false)}>{nav[route.key]}</Link>;
           })}
           <Link href={languagePath || `/${nextLocale}`} className="language-switch" lang={nextLocale === "zh" ? "zh-CN" : "en"} onClick={() => setOpen(false)}>

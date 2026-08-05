@@ -2,8 +2,13 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ProjectCard } from "@/components/ProjectCard";
+import { WorkCard } from "@/components/WorkCard";
+import { DomainMigrationNotice } from "@/components/DomainMigrationNotice";
 import { getContent, isLocale } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
+import { getFeaturedProjects } from "@/lib/projects";
+import { siteCopy } from "@/lib/site-copy";
+import { getFeaturedWorks } from "@/lib/works";
 import { notFound } from "next/navigation";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -17,46 +22,45 @@ export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const data = getContent(locale);
+  const copy = siteCopy[locale].home;
+  const featuredProjects = getFeaturedProjects().slice(0, 3);
+  const featuredWorks = getFeaturedWorks();
 
   return (
     <>
+      <DomainMigrationNotice locale={locale} />
       <section className="hero section-shell">
         <div className="hero-copy reveal">
           <div className="status-row"><span className="eyebrow">{data.home.eyebrow}</span><span className="status"><i />{data.home.status}</span></div>
-          <h1>{data.home.title}</h1>
+          <h1>{locale === "zh" ? <><span>在商业问题与 AI 工具之间，</span><span>寻找可落地的连接。</span></> : <><span>Connecting business questions</span><span>with practical AI tools.</span></>}</h1>
+          <span className="title-rule" aria-hidden="true" />
           <p className="hero-lead">{data.home.intro}</p>
           <div className="action-row">
-            <Link className="button button-primary" href={`/${locale}/projects`}>{data.common.viewProjects}<span>↗</span></Link>
-            <Link className="button button-ghost" href={`/${locale}/about`}>{data.nav.about}<span>→</span></Link>
+            <Link className="button button-primary" href={`/${locale}/projects`}>{data.common.viewProjects}<span>→</span></Link>
+            <Link className="button button-link" href={`/${locale}/works`}>{copy.viewWorks}<span>→</span></Link>
           </div>
         </div>
-        <div className="portrait-panel reveal reveal-delay">
-          <div className="portrait-orbit" aria-hidden="true" />
-          <div className="portrait-frame">
-            <Image src="/profile-wangbo.webp" alt={locale === "zh" ? "王波职业头像" : "Professional portrait of Wang Bo"} width={418} height={624} priority sizes="(max-width: 860px) 70vw, 360px" />
+        <aside className="identity-panel reveal reveal-delay">
+          <div className="identity-copy"><h2>{locale === "zh" ? "王波" : "Wang Bo"}</h2><span>WANG BO</span><i aria-hidden="true" />
+            <dl>{copy.identity.map((item, index) => <div key={item}><dt>{String(index + 1).padStart(2, "0")}</dt><dd>{item}</dd></div>)}</dl>
           </div>
-          <span className="portrait-label">WANG BO / 2026</span>
-        </div>
-        <div className="metric-strip">
-          {data.home.numbers.map((item) => <div key={item.label}><strong>{item.value}</strong><span>{item.label}</span></div>)}
-        </div>
-      </section>
-
-      <section className="section-shell focus-section">
-        <div className="section-heading"><span className="eyebrow">{data.common.current}</span><h2>{data.home.focusTitle}</h2></div>
-        <div className="focus-grid">
-          {data.home.focuses.map((item) => <article key={item.index} className="focus-card"><span>{item.index}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}
-        </div>
+          <Image className="identity-portrait" src="/profile-wangbo.webp" alt={locale === "zh" ? "王波职业头像" : "Professional portrait of Wang Bo"} width={418} height={624} priority sizes="(max-width: 860px) 82vw, 330px" />
+        </aside>
       </section>
 
       <section className="section-shell selected-projects">
-        <div className="section-heading split-heading"><div><span className="eyebrow">PROJECTS / 02</span><h2>{data.home.projectsTitle}</h2></div><p>{data.home.projectsIntro}</p></div>
-        <div className="project-stack">{data.projects.items.map((project) => <ProjectCard key={project.number} project={project} compact />)}</div>
-        <Link className="text-link" href={`/${locale}/projects`}>{data.common.viewProjects}<span>↗</span></Link>
+        <div className="section-heading split-heading"><div><span className="eyebrow">{copy.projectsKicker}</span><h2>{copy.projectsTitle}</h2></div><Link className="text-link" href={`/${locale}/projects`}>{copy.viewAllProjects}<span>→</span></Link></div>
+        <div className="project-stack">{featuredProjects.map((project, index) => <ProjectCard key={project.slug} project={project} locale={locale} index={index} compact />)}</div>
       </section>
 
-      <section className="section-shell manifesto">
-        <span className="quote-mark">“</span><blockquote>{data.home.quote}</blockquote><span className="signal-line" aria-hidden="true" />
+      <section className="section-shell selected-works">
+        <div className="section-heading split-heading"><div><span className="eyebrow">{copy.worksKicker}</span><h2>{copy.worksTitle}</h2><p>{copy.worksIntro}</p></div><Link className="text-link" href={`/${locale}/works`}>{copy.viewWorks}<span>→</span></Link></div>
+        <div className="work-list work-list-home">{featuredWorks.map((work, index) => <WorkCard key={work.id} work={work} locale={locale} index={index} />)}</div>
+      </section>
+
+      <section className="section-shell now-section">
+        <div><span className="eyebrow">{copy.currentKicker}</span><h2>{copy.currentTitle}</h2></div>
+        <ol>{copy.currentItems.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>)}</ol>
       </section>
     </>
   );
