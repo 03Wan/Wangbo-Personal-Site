@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { getContent, isLocale, locales } from "@/lib/content";
 
 export function generateStaticParams() {
@@ -25,6 +26,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
 
   return (
     <div className="site-frame" lang={rawLocale === "zh" ? "zh-CN" : "en"}>
+      <ScrollReveal />
       <div className="ambient ambient-one" aria-hidden="true" />
       <div className="ambient ambient-two" aria-hidden="true" />
       <Header locale={rawLocale} nav={data.nav} brand={data.brand} />

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { ProjectCard } from "@/components/ProjectCard";
 import { WorkCard } from "@/components/WorkCard";
@@ -25,14 +24,20 @@ export default async function HomePage({ params }: Props) {
   const copy = siteCopy[locale].home;
   const featuredProjects = getFeaturedProjects().slice(0, 3);
   const featuredWorks = getFeaturedWorks();
+  const focusIndex = locale === "zh"
+    ? ["跨境电商", "AIGC 应用", "数字贸易", "产品实践"]
+    : ["Cross-border commerce", "Applied AIGC", "Digital trade", "Product practice"];
+  const heroTitle = locale === "zh"
+    ? "用 AI 连接商业问题，让解决方案真正落地。"
+    : "Using AI to connect business questions with practical solutions.";
 
   return (
     <>
       <DomainMigrationNotice locale={locale} />
       <section className="hero section-shell">
-        <div className="hero-copy reveal">
+        <div className="hero-copy">
           <div className="status-row"><span className="eyebrow">{data.home.eyebrow}</span><span className="status"><i />{data.home.status}</span></div>
-          <h1>{locale === "zh" ? <><span>在商业问题与 AI 工具之间，</span><span>寻找可落地的连接。</span></> : <><span>Connecting business questions</span><span>with practical AI tools.</span></>}</h1>
+          <h1>{heroTitle}</h1>
           <span className="title-rule" aria-hidden="true" />
           <p className="hero-lead">{data.home.intro}</p>
           <div className="action-row">
@@ -40,11 +45,14 @@ export default async function HomePage({ params }: Props) {
             <Link className="button button-link" href={`/${locale}/works`}>{copy.viewWorks}<span>→</span></Link>
           </div>
         </div>
-        <aside className="identity-panel reveal reveal-delay">
+        <aside className="identity-panel">
           <div className="identity-copy"><h2>{locale === "zh" ? "王波" : "Wang Bo"}</h2><span>WANG BO</span><i aria-hidden="true" />
             <dl>{copy.identity.map((item, index) => <div key={item}><dt>{String(index + 1).padStart(2, "0")}</dt><dd>{item}</dd></div>)}</dl>
           </div>
-          <Image className="identity-portrait" src="/profile-wangbo.webp" alt={locale === "zh" ? "王波职业头像" : "Professional portrait of Wang Bo"} width={418} height={624} priority sizes="(max-width: 860px) 82vw, 330px" />
+          <div className="identity-index">
+            <div><span className="eyebrow">FOCUS INDEX / 04</span><strong>WB</strong></div>
+            <ol>{focusIndex.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>)}</ol>
+          </div>
         </aside>
       </section>
 

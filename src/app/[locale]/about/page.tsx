@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import { PageIntro } from "@/components/PageIntro";
 import { getContent, isLocale } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
@@ -11,10 +10,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> { c
 
 export default async function AboutPage({ params }: Props) {
   const { locale } = await params; if (!isLocale(locale)) notFound(); const data = getContent(locale); const extra = siteCopy[locale].about;
+  const profileIndex = locale === "zh"
+    ? ["经贸专业基础", "研究与内容表达", "AI 工具应用", "项目组织推进"]
+    : ["Economics foundation", "Research and communication", "Applied AI tools", "Project coordination"];
   return <div className="section-shell page-shell">
     <PageIntro eyebrow={data.about.eyebrow} title={data.about.title} lead={data.about.lead} />
     <section className="about-story">
-      <div className="about-portrait"><Image src="/profile-wangbo.webp" alt={locale === "zh" ? "王波职业头像" : "Professional portrait of Wang Bo"} width={418} height={624} sizes="(max-width: 760px) 82vw, 300px" /><span>03 / WAN</span></div>
+      <aside className="about-profile-index">
+        <span className="eyebrow">PROFILE INDEX / 04</span>
+        <strong>WB</strong>
+        <ol>{profileIndex.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>)}</ol>
+      </aside>
       <div className="story-copy"><span className="section-index">01</span><h2>{data.about.storyTitle}</h2>{data.about.story.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
     </section>
     <section className="principles-section"><div className="section-heading"><span className="section-index">02</span><h2>{data.about.principlesTitle}</h2></div><div className="principle-grid">{data.about.principles.map((item, index) => <article key={item.title}><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></section>

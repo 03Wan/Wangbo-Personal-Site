@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import type { Locale } from "@/lib/content";
 
 const destination = "https://www.myboverse.com/";
-const storageKey = "zhixuan-youfa-domain-notice-v1";
 
 export function DomainMigrationNotice({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false);
@@ -13,7 +12,7 @@ export function DomainMigrationNotice({ locale }: { locale: Locale }) {
     const frame = window.requestAnimationFrame(() => {
       const hostname = window.location.hostname;
       const isNewDomain = hostname === "myboverse.com" || hostname === "www.myboverse.com";
-      if (!isNewDomain && window.localStorage.getItem(storageKey) !== "dismissed") setOpen(true);
+      if (!isNewDomain) setOpen(true);
     });
     return () => window.cancelAnimationFrame(frame);
   }, []);
@@ -21,14 +20,13 @@ export function DomainMigrationNotice({ locale }: { locale: Locale }) {
   useEffect(() => {
     if (!open) return;
     const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") dismiss();
+      if (event.key === "Escape") setOpen(false);
     };
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
   }, [open]);
 
   function dismiss() {
-    window.localStorage.setItem(storageKey, "dismissed");
     setOpen(false);
   }
 
