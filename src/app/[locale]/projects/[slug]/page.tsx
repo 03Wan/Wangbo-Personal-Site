@@ -1,15 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { isLocale, locales } from "@/lib/content";
+import { isLocale } from "@/lib/content";
 import { getSiteData } from "@/lib/site-data";
 import { notFound } from "next/navigation";
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
-
-export async function generateStaticParams() {
-  const { projects } = await getSiteData();
-  return locales.flatMap((locale) => projects.map((project) => ({ locale, slug: project.slug })));
-}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;

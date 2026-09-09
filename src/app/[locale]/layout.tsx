@@ -5,6 +5,9 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 import { isLocale, locales } from "@/lib/content";
 import { getSiteData } from "@/lib/site-data";
 
+// Content is managed in Sanity and should be read again after every publish.
+export const dynamic = "force-dynamic";
+
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
