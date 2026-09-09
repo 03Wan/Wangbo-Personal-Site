@@ -11,8 +11,8 @@ export function DomainMigrationNotice({ locale }: { locale: Locale }) {
   useEffect(() => {
     const frame = window.requestAnimationFrame(() => {
       const hostname = window.location.hostname;
-      const isNewDomain = hostname === "myboverse.com" || hostname === "www.myboverse.com";
-      if (!isNewDomain) setOpen(true);
+      const isZhixuanYoufaDomain = hostname === "zhixuanyoufa.myboverse.com";
+      if (!isZhixuanYoufaDomain) setOpen(true);
     });
     return () => window.cancelAnimationFrame(frame);
   }, []);
