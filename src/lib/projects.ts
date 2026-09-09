@@ -1,31 +1,4 @@
-import type { Locale } from "./content";
-import type { Project, ProjectCategory, ProjectStatus } from "./types";
-
-export const projectCategoryLabels: Record<Locale, Record<"all" | ProjectCategory, string>> = {
-  zh: {
-    all: "全部",
-    "cross-border": "跨境电商",
-    aigc: "AIGC",
-    "digital-trade": "数字贸易",
-    product: "产品实践",
-    "data-research": "数据研究",
-    "rural-research": "乡村调研",
-  },
-  en: {
-    all: "All",
-    "cross-border": "Cross-border commerce",
-    aigc: "AIGC",
-    "digital-trade": "Digital trade",
-    product: "Product practice",
-    "data-research": "Data research",
-    "rural-research": "Rural fieldwork",
-  },
-};
-
-export const projectStatusLabels: Record<Locale, Record<ProjectStatus, string>> = {
-  zh: { completed: "已完成", ongoing: "进行中", archived: "已归档" },
-  en: { completed: "Completed", ongoing: "Ongoing", archived: "Archived" },
-};
+import type { Project } from "./types";
 
 export const projects: Project[] = [
   {
@@ -33,17 +6,12 @@ export const projects: Project[] = [
     category: ["cross-border", "data-research"],
     year: "2024",
     period: "2023.05 — 2024.05",
-    periodEn: "May 2023 — May 2024",
     level: "校级项目",
-    levelEn: "University-level project",
     status: "completed",
     role: ["第一主持人", "项目统筹", "研究框架设计", "汇报材料整合"],
-    roleEn: ["Lead investigator", "Project coordination", "Research framework", "Presentation integration"],
     tags: ["DTC", "跨境电商", "市场调研", "用户转化"],
-    tagsEn: ["DTC", "Cross-border commerce", "Market research", "User conversion"],
     featured: false,
-    localeContent: {
-      zh: {
+    content: {
         title: "中国鞋业 DTC 出海之路",
         subtitle: "从市场、渠道与用户转化理解中国鞋业品牌出海",
         summary: "围绕中国鞋业品牌通过 DTC 模式拓展海外市场，梳理线上营销、渠道选择与用户转化中的关键问题。",
@@ -60,25 +28,6 @@ export const projects: Project[] = [
         outcomes: ["项目研究框架", "阶段性调研材料", "项目汇报材料"],
         reflection: "该项目建立了我对跨境电商业务链路的整体认识。后续若继续推进，需要补充更系统的一手访谈与可比较案例。",
         evidenceNote: "目前公开展示项目摘要与方法说明；完整调研材料尚未公开。",
-      },
-      en: {
-        title: "The DTC Path for Chinese Footwear Brands",
-        subtitle: "Understanding overseas expansion through markets, channels and conversion journeys",
-        summary: "A study of how Chinese footwear brands can expand overseas through DTC models, with attention to online marketing, channel choices and user conversion.",
-        background: "The project grew from coursework in international trade and cross-border commerce. It examined the market-entry, brand communication and conversion questions that footwear brands face when selling directly to overseas consumers. The work relied on public sources and the team's research capacity, so staged observations are not presented as validated commercial results.",
-        problem: ["How should a brand assess target markets and channels for a DTC approach?", "How do content and customer touchpoints shape the conversion journey?", "How can dispersed research be organized into a consistent team narrative?"],
-        responsibilities: ["Set research tasks and milestones and coordinated the team's progress.", "Structured the research around market, channel and user questions.", "Integrated source notes, proposals and presentation materials into a consistent narrative."],
-        process: [
-          { title: "Research", text: "Reviewed public industry and brand materials and clarified concepts around DTC, channels and conversion." },
-          { title: "Design", text: "Organized the research framework around market, channel, content and conversion stages." },
-          { title: "Delivery", text: "Allocated source work, facilitated milestone discussions and refined the scope." },
-          { title: "Review", text: "Cross-checked public sources and team wording to separate evidence from assumptions." },
-          { title: "Output", text: "Produced a research framework, staged materials and a project presentation." },
-        ],
-        outcomes: ["Research framework", "Staged research materials", "Project presentation"],
-        reflection: "The project gave me a working view of the cross-border commerce journey. A future iteration would need more systematic primary interviews and comparable cases.",
-        evidenceNote: "A project summary and method notes are public here; the full research materials are not currently public.",
-      },
     },
   },
   {
@@ -86,17 +35,12 @@ export const projects: Project[] = [
     category: ["aigc", "cross-border", "data-research"],
     year: "2026",
     period: "2025.05 — 2026.05",
-    periodEn: "May 2025 — May 2026",
     level: "国家级大学生创新创业训练项目",
-    levelEn: "National Undergraduate Innovation and Entrepreneurship Training Project",
     status: "ongoing",
     role: ["第一主持人", "研究设计", "团队协调", "资料分析", "阶段性成果整合"],
-    roleEn: ["Lead investigator", "Research design", "Team coordination", "Source analysis", "Staged output integration"],
     tags: ["AIGC", "跨境电商", "内容生成", "营销优化", "跨文化适配"],
-    tagsEn: ["AIGC", "Cross-border commerce", "Content generation", "Marketing optimization", "Cross-cultural adaptation"],
     featured: true,
-    localeContent: {
-      zh: {
+    content: {
         title: "AIGC 应用于跨境电商出海的机制及对策研究",
         subtitle: "从应用机制到跨文化适配的阶段性研究",
         summary: "研究 AIGC 在跨境电商内容生成、营销优化和跨文化适配中的应用机制，并整理可供后续验证的对策框架。",
@@ -113,25 +57,6 @@ export const projects: Project[] = [
         outcomes: ["AIGC 跨境应用场景框架", "阶段性资料分析", "项目研究与展示材料", "待验证的对策框架"],
         reflection: "AIGC 的价值取决于任务、数据、规则和人工复核如何协同。项目下一步需要进一步收窄变量并补充可复现的验证过程。",
         evidenceNote: "项目进行中，仅展示研究设计与阶段性成果，不展示未经验证的最终结论。",
-      },
-      en: {
-        title: "AIGC Mechanisms and Strategies for Cross-border E-commerce",
-        subtitle: "An ongoing study from application mechanisms to cross-cultural adaptation",
-        summary: "An ongoing study of how AIGC may support content generation, marketing optimization and cross-cultural adaptation in cross-border commerce, with a framework for later validation.",
-        background: "Cross-border content must navigate platform rules, language differences, cultural context and production efficiency at the same time. This project examines AIGC inside practical workflows rather than treating the technology as an isolated feature. The research is still in progress.",
-        problem: ["Where can AIGC fit into a cross-border content workflow?", "How can generated content balance platform rules, brand expression and local context?", "Which evaluation dimensions can support validation beyond subjective judgment?", "Where should human review and accountability sit in the workflow?"],
-        responsibilities: ["Defined the research questions and structured the mechanism framework.", "Coordinated team roles, source analysis and milestone discussions.", "Mapped use cases across content generation, marketing optimization and cultural adaptation.", "Integrated staged outputs and clearly marked areas awaiting validation."],
-        process: [
-          { title: "Research", text: "Reviewed literature and cases on AIGC, cross-border marketing and cultural adaptation." },
-          { title: "Design", text: "Structured a framework covering use cases, mechanisms and evaluation dimensions." },
-          { title: "Delivery", text: "Coordinated source coding, case discussion and staged writing." },
-          { title: "Review", text: "Separated observations and hypotheses from validated findings and planned later tests." },
-          { title: "Output", text: "Produced a research framework, project materials and staged strategic directions." },
-        ],
-        outcomes: ["Cross-border AIGC use-case framework", "Staged source analysis", "Research and presentation materials", "Strategy framework awaiting validation"],
-        reflection: "AIGC becomes useful only when tasks, data, rules and human review work together. The next phase needs narrower variables and a more reproducible validation process.",
-        evidenceNote: "This project is ongoing. Only the research design and staged outputs are shown; no unvalidated final conclusion is presented.",
-      },
     },
   },
   {
@@ -139,17 +64,12 @@ export const projects: Project[] = [
     category: ["product", "aigc", "cross-border"],
     year: "2026",
     period: "2025 — 2026",
-    periodEn: "2025 — 2026",
     level: "产品实践",
-    levelEn: "Product practice",
     status: "ongoing",
     role: ["项目策划", "产品结构设计", "研究协调", "功能流程梳理", "商业材料整理", "展示材料统筹"],
-    roleEn: ["Project planning", "Product structure", "Research coordination", "Workflow design", "Business materials", "Presentation coordination"],
     tags: ["AIGC", "素材评估", "平台规则", "风险识别", "发布决策"],
-    tagsEn: ["AIGC", "Content assessment", "Platform rules", "Risk review", "Publishing decisions"],
     featured: true,
-    localeContent: {
-      zh: {
+    content: {
         title: "智选优发",
         subtitle: "基于 AIGC 的跨境商品素材智能评估与发布决策辅助系统",
         summary: "面向跨境电商企业和卖家，在商品标题、主图、详情页和广告文案正式发布前，提供素材检测、风险识别、优化建议和发布决策支持。",
@@ -166,25 +86,6 @@ export const projects: Project[] = [
         outcomes: ["产品结构与功能流程", "素材检测与发布建议框架", "检测报告结构", "项目展示材料"],
         reflection: "系统价值不在于替代发布人员，而在于把检查项、风险依据和复核动作组织得更清楚。下一步重点是验证评分逻辑与规则更新机制。",
         evidenceNote: "系统正在完善。当前未在本仓库中发现可核验的公开系统或独立 GitHub 地址，因此不提供外部入口。",
-      },
-      en: {
-        title: "Zhixuan Youfa",
-        subtitle: "An AIGC-assisted system for evaluating cross-border product assets and supporting publishing decisions",
-        summary: "A pre-publishing workflow for cross-border sellers that reviews product titles, images, detail pages and ad copy, identifies risks, suggests improvements and supports release decisions.",
-        background: "Before cross-border product assets go live, teams need to review content quality, platform rules and target-market fit at once. This project turns those dispersed checks into a reviewable product workflow. The system is still being refined.",
-        problem: ["How can titles, primary images, detail pages and ad copy share one review flow?", "How should quality issues, policy risks and market-fit concerns be separated?", "How can automated suggestions preserve human review and an audit trail?", "How can test results lead to a clear publishing recommendation?"],
-        responsibilities: ["Defined the product goal, target users and core workflow.", "Mapped intake, detection, recommendation, review and reporting steps.", "Connected research inputs with the functional structure.", "Kept business, competition and presentation materials consistent with the product scope."],
-        process: [
-          { title: "Research", text: "Mapped recurring tasks in cross-border content production, platform review and market adaptation." },
-          { title: "Design", text: "Planned modules for asset intake, quality scoring, rule checks, risk prompts and publishing guidance." },
-          { title: "Delivery", text: "Developed a consistent structure for the workflow, interface and report output." },
-          { title: "Review", text: "Kept human review and audit records in the flow; the evaluation logic still needs broader real-sample testing." },
-          { title: "Output", text: "Produced the system concept, functional workflow, report structure and presentation materials." },
-        ],
-        outcomes: ["Product structure and functional flow", "Asset-review and publishing framework", "Detection report structure", "Project presentation materials"],
-        reflection: "The system should support publishing teams by organizing checks, evidence and review actions—not replace them. The next priority is validating the scoring logic and rule-update process.",
-        evidenceNote: "The system is being refined. No verifiable public system or separate GitHub URL was found in this repository, so no external link is shown.",
-      },
     },
   },
   {
@@ -192,17 +93,12 @@ export const projects: Project[] = [
     category: ["digital-trade", "data-research", "cross-border"],
     year: "2026",
     period: "2025 — 进行中",
-    periodEn: "2025 — Ongoing",
     level: "研究项目",
-    levelEn: "Research project",
     status: "ongoing",
     role: ["研究问题设计", "文献整理", "数据来源梳理", "变量设计", "模型设计", "论文写作"],
-    roleEn: ["Research question design", "Literature review", "Data-source mapping", "Variable design", "Model design", "Academic writing"],
     tags: ["数字贸易", "Digital STRI", "面板数据", "双向固定效应"],
-    tagsEn: ["Digital trade", "Digital STRI", "Panel data", "Two-way fixed effects"],
     featured: true,
-    localeContent: {
-      zh: {
+    content: {
         title: "数字贸易壁垒对跨境电商发展的影响研究",
         subtitle: "基于多源面板数据的研究设计与阶段性推进",
         summary: "围绕数据本地化政策、数字贸易限制与跨境电商发展之间的关系，尝试使用面板数据和双向固定效应模型开展分析。",
@@ -219,25 +115,6 @@ export const projects: Project[] = [
         outcomes: ["研究问题与假设框架", "多源数据清单", "变量与模型设计", "阶段性论文结构"],
         reflection: "跨来源数据的可比性和口径透明度决定了研究可信度。下一步需要完成数据清理、模型检验与结果复核。",
         evidenceNote: "目前为研究设计和阶段性推进，不展示未经验证的最终结论；完整数据与论文尚未公开。",
-      },
-      en: {
-        title: "How Digital Trade Barriers Affect Cross-border E-commerce",
-        subtitle: "Research design and staged development using multi-source panel data",
-        summary: "An ongoing study of the relationship between data-localization policies, digital trade restrictions and cross-border e-commerce using panel data and a two-way fixed-effects design.",
-        background: "Digital trade rules can affect data flows, platform operations and transaction costs. The study plans to combine the OECD Digital STRI, World Bank macroeconomic data and CEPII distance data into a testable panel-data structure.",
-        problem: ["How can digital trade restrictions be translated into comparable measures?", "How should sources with different coverage, frequency and definitions be aligned?", "Which variables and model structure can account for country and year effects?", "Which robustness and mechanism checks are needed?"],
-        responsibilities: ["Defined the research question and analytical boundaries.", "Mapped data sources from the OECD, World Bank and CEPII.", "Designed outcome, explanatory and control variables and the model structure.", "Reviewed literature and developed the research and paper outline."],
-        process: [
-          { title: "Research", text: "Reviewed work on digital trade barriers, data localization and cross-border commerce." },
-          { title: "Design", text: "Planned the indicators, variables, panel structure and two-way fixed-effects model." },
-          { title: "Delivery", text: "Advanced definition checks, source matching and research documentation." },
-          { title: "Review", text: "Planned robustness, alternative-variable and mechanism tests; no publishable final result is available yet." },
-          { title: "Output", text: "Produced the research framework, source inventory and staged paper structure." },
-        ],
-        outcomes: ["Research question and hypothesis framework", "Multi-source data inventory", "Variable and model design", "Staged paper structure"],
-        reflection: "Comparability and transparent definitions across sources determine the credibility of the analysis. The next phase is data cleaning, model testing and result review.",
-        evidenceNote: "This work is at the research-design and staged-development phase. No unvalidated final conclusion is presented, and the full dataset and paper are not public.",
-      },
     },
   },
   {
@@ -245,17 +122,12 @@ export const projects: Project[] = [
     category: ["rural-research", "data-research"],
     year: "2025",
     period: "2025",
-    periodEn: "2025",
     level: "实地调研",
-    levelEn: "Field research",
     status: "ongoing",
     role: ["调研任务设计", "实地走访", "访谈与资料整理", "报告撰写", "对策建议", "成果视觉化"],
-    roleEn: ["Fieldwork planning", "Site visits", "Interview documentation", "Report writing", "Recommendations", "Outcome visualization"],
     tags: ["乡村振兴", "产业调研", "文旅融合", "访谈", "报告写作"],
-    tagsEn: ["Rural revitalization", "Industry research", "Culture and tourism", "Interviews", "Report writing"],
     featured: true,
-    localeContent: {
-      zh: {
+    content: {
         title: "江苏乡村产业与文旅融合实地调研",
         subtitle: "从走访、访谈到调研报告的实践记录",
         summary: "围绕乡村产业发展、农业生产、文旅融合、基层治理和公共服务开展走访、访谈、问卷与报告写作。",
@@ -272,33 +144,6 @@ export const projects: Project[] = [
         outcomes: ["走访与访谈记录", "问卷与资料整理", "乡村调研报告", "对策建议与展示材料"],
         reflection: "实地调研需要在信息丰富度、受访者语境和结论边界之间保持谨慎。后续工作是继续整理可公开材料并完善证据标注。",
         evidenceNote: "调研成果正在整理；完整访谈、问卷与报告暂未公开，本站不展示未经授权的原始资料。",
-      },
-      en: {
-        title: "Field Research on Rural Industry and Culture–Tourism Integration in Jiangsu",
-        subtitle: "A practice record from site visits and interviews to report writing",
-        summary: "Fieldwork on rural industry, agricultural production, culture–tourism integration, local governance and public services through visits, interviews, questionnaires and report writing.",
-        background: "The fieldwork examined connections among rural industry, agricultural branding, study tours and travel routes. Visits included Tangquan Farm, Guanzhuang Village, Wangguan Village and Niguan Village. This site presents only organized process information and does not invent unpublished data.",
-        problem: ["How do local industry, agricultural production and tourism experiences connect?", "How do different interviewees describe development constraints?", "How can visits, interviews and questionnaires become a clear report?", "How can recommendations remain actionable while respecting evidence limits?"],
-        responsibilities: ["Designed fieldwork tasks, interview themes and documentation methods.", "Conducted site visits and organized interview, questionnaire and observation notes.", "Drafted the report and structured recommendations.", "Translated the process and staged outputs into a clear presentation structure."],
-        process: [
-          { title: "Research", text: "Conducted visits and collected materials across Tangquan Farm, Guanzhuang, Wangguan and Niguan villages." },
-          { title: "Design", text: "Planned interview themes, questionnaire content, observation dimensions and the report outline." },
-          { title: "Delivery", text: "Documented information on industry, agriculture, public services and tourism routes." },
-          { title: "Review", text: "Checked interview notes against public materials and avoided generalizing from isolated observations." },
-          { title: "Output", text: "Organized the fieldwork report, recommendations and visual presentation materials." },
-        ],
-        outcomes: ["Visit and interview notes", "Questionnaire and source organization", "Rural fieldwork report", "Recommendations and presentation materials"],
-        reflection: "Fieldwork requires care with context, evidence and the limits of conclusions. The next step is to organize material that can be shared publicly and improve evidence notes.",
-        evidenceNote: "The outputs are being organized. Full interviews, questionnaires and the report are not public, and no unauthorized raw material is shown here.",
-      },
     },
   },
 ];
-
-export function getProject(slug: string) {
-  return projects.find((project) => project.slug === slug);
-}
-
-export function getFeaturedProjects() {
-  return projects.filter((project) => project.featured);
-}

@@ -16,7 +16,6 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "王波个人官网",
     locale: "zh_CN",
-    alternateLocale: "en_US",
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "王波个人官网" }],
   },
   twitter: { card: "summary_large_image", images: ["/og.png"] },

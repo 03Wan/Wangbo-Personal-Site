@@ -3,11 +3,9 @@ import Link from "next/link";
 import { ProjectCard } from "@/components/ProjectCard";
 import { WorkCard } from "@/components/WorkCard";
 import { DomainMigrationNotice } from "@/components/DomainMigrationNotice";
-import { getContent, isLocale } from "@/lib/content";
+import { isLocale } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
-import { getFeaturedProjects } from "@/lib/projects";
-import { siteCopy } from "@/lib/site-copy";
-import { getFeaturedWorks } from "@/lib/works";
+import { getSiteData } from "@/lib/site-data";
 import { notFound } from "next/navigation";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -20,24 +18,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const data = getContent(locale);
-  const copy = siteCopy[locale].home;
-  const featuredProjects = getFeaturedProjects().slice(0, 3);
-  const featuredWorks = getFeaturedWorks();
-  const focusIndex = locale === "zh"
-    ? ["跨境电商", "AIGC 应用", "数字贸易", "产品实践"]
-    : ["Cross-border commerce", "Applied AIGC", "Digital trade", "Product practice"];
-  const heroTitle = locale === "zh"
-    ? "用 AI 连接商业问题，让解决方案真正落地。"
-    : "Using AI to connect business questions with practical solutions.";
+  const snapshot = await getSiteData();
+  const data = snapshot.content[locale];
+  const copy = snapshot.siteCopy[locale].home;
+  const ui = snapshot.siteCopy[locale].ui;
+  const projectCopy = snapshot.siteCopy[locale].projects;
+  const featuredProjects = snapshot.projects.filter((project) => project.featured).slice(0, 3);
+  const featuredWorks = snapshot.works.filter((work) => work.featured).slice(0, 3);
+  const focusIndex = data.home.focuses.map((focus) => focus.title);
 
   return (
     <>
-      <DomainMigrationNotice locale={locale} />
+      <DomainMigrationNotice copy={snapshot.siteCopy[locale].migration} destination={data.shared.migrationSite} />
       <section className="hero section-shell">
         <div className="hero-copy">
           <div className="status-row"><span className="eyebrow">{data.home.eyebrow}</span><span className="status"><i />{data.home.status}</span></div>
-          <h1>{heroTitle}</h1>
+          <h1>{data.home.title}</h1>
           <span className="title-rule" aria-hidden="true" />
           <p className="hero-lead">{data.home.intro}</p>
           <div className="action-row">
@@ -46,11 +42,11 @@ export default async function HomePage({ params }: Props) {
           </div>
         </div>
         <aside className="identity-panel">
-          <div className="identity-copy"><h2>{locale === "zh" ? "王波" : "Wang Bo"}</h2><span>WANG BO</span><i aria-hidden="true" />
+          <div className="identity-copy"><h2>{ui.personName}</h2><span>{ui.latinName}</span><i aria-hidden="true" />
             <dl>{copy.identity.map((item, index) => <div key={item}><dt>{String(index + 1).padStart(2, "0")}</dt><dd>{item}</dd></div>)}</dl>
           </div>
           <div className="identity-index">
-            <div><span className="eyebrow">FOCUS INDEX / 04</span><strong>WB</strong></div>
+            <div><span className="eyebrow">{ui.focusIndexLabel}</span><strong>{ui.monogram}</strong></div>
             <ol>{focusIndex.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>)}</ol>
           </div>
         </aside>
@@ -58,12 +54,12 @@ export default async function HomePage({ params }: Props) {
 
       <section className="section-shell selected-projects">
         <div className="section-heading split-heading"><div><span className="eyebrow">{copy.projectsKicker}</span><h2>{copy.projectsTitle}</h2></div><Link className="text-link" href={`/${locale}/projects`}>{copy.viewAllProjects}<span>→</span></Link></div>
-        <div className="project-stack">{featuredProjects.map((project, index) => <ProjectCard key={project.slug} project={project} locale={locale} index={index} compact />)}</div>
+        <div className="project-stack">{featuredProjects.map((project, index) => <ProjectCard key={project.slug} project={project} locale={locale} copy={projectCopy} index={index} compact />)}</div>
       </section>
 
       <section className="section-shell selected-works">
         <div className="section-heading split-heading"><div><span className="eyebrow">{copy.worksKicker}</span><h2>{copy.worksTitle}</h2><p>{copy.worksIntro}</p></div><Link className="text-link" href={`/${locale}/works`}>{copy.viewWorks}<span>→</span></Link></div>
-        <div className="work-list work-list-home">{featuredWorks.map((work, index) => <WorkCard key={work.id} work={work} locale={locale} index={index} />)}</div>
+        <div className="work-list work-list-home">{featuredWorks.map((work, index) => <WorkCard key={work.id} work={work} locale={locale} copy={snapshot.siteCopy[locale].works} index={index} projects={snapshot.projects} />)}</div>
       </section>
 
       <section className="section-shell now-section">
