@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import type { Locale } from "@/lib/content";
 
-const destination = "https://www.myboverse.com/";
+const destination = "https://zhixuanyoufa.myboverse.com/";
 
 export function DomainMigrationNotice({ locale }: { locale: Locale }) {
   const [open, setOpen] = useState(false);
@@ -54,7 +54,7 @@ export function DomainMigrationNotice({ locale }: { locale: Locale }) {
         <div className="migration-heading"><span className="eyebrow">DOMAIN UPDATE / 01</span><button type="button" onClick={dismiss}>{copy.close}</button></div>
         <h2 id="migration-title">{copy.title}</h2>
         <p id="migration-description">{copy.description}</p>
-        <a className="migration-domain" href={destination} target="_blank" rel="noopener noreferrer">myboverse.com <span>↗</span></a>
+        <a className="migration-domain" href={destination} target="_blank" rel="noopener noreferrer">zhixuanyoufa.myboverse.com <span>↗</span></a>
         <div className="migration-actions"><a className="button button-primary" href={destination} target="_blank" rel="noopener noreferrer">{copy.visit}<span>→</span></a><button className="button button-ghost" type="button" onClick={dismiss}>{copy.stay}</button></div>
       </section>
     </div>

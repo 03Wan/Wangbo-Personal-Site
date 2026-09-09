@@ -7,10 +7,10 @@ const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://paperhelper.fun"),
+  metadataBase: new URL("https://www.myboverse.com"),
   title: { default: "王波 | 个人官网", template: "%s | 王波" },
   description: "王波的个人官网：关于我、项目作品、个人简历与联系方式。",
-  authors: [{ name: "王波", url: "https://paperhelper.fun" }],
+  authors: [{ name: "王波", url: "https://www.myboverse.com" }],
   creator: "王波",
   openGraph: {
     type: "website",

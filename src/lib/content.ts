@@ -8,7 +8,7 @@ export function isLocale(value: string): value is Locale {
 const shared = {
   email: "wangbo030127@gmail.com",
   github: "https://github.com/03Wan",
-  site: "https://paperhelper.fun",
+  site: "https://www.myboverse.com",
 };
 
 export const content = {
