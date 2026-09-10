@@ -17,7 +17,9 @@ export function getSanityClient() {
     projectId,
     dataset,
     apiVersion,
-    useCdn: true,
+    // Portfolio updates should be visible as soon as they are published in Sanity.
+    // Avoid the CDN's eventual-consistency window for this small, low-traffic site.
+    useCdn: false,
     perspective: 'published',
   });
 }

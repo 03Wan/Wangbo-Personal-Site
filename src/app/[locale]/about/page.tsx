@@ -4,25 +4,6 @@ import { isLocale } from "@/lib/content";
 import { getSiteData } from "@/lib/site-data";
 import { pageMetadata } from "@/lib/metadata";
 import { notFound } from "next/navigation";
-
 type Props = { params: Promise<{ locale: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> { const { locale } = await params; return isLocale(locale) ? pageMetadata(locale, "about", "about") : {}; }
-
-export default async function AboutPage({ params }: Props) {
-  const { locale } = await params; if (!isLocale(locale)) notFound(); const snapshot = await getSiteData(); const data = snapshot.content[locale]; const extra = snapshot.siteCopy[locale].about; const ui = snapshot.siteCopy[locale].ui;
-  return <div className="section-shell page-shell">
-    <PageIntro eyebrow={data.about.eyebrow} title={data.about.title} lead={data.about.lead} />
-    <section className="about-story">
-      <aside className="about-profile-index">
-        <span className="eyebrow">{ui.profileIndexLabel}</span>
-        <strong>{ui.monogram}</strong>
-        <ol>{extra.profileIndex.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>)}</ol>
-      </aside>
-      <div className="story-copy"><span className="section-index">01</span><h2>{data.about.storyTitle}</h2>{data.about.story.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
-    </section>
-    <section className="principles-section"><div className="section-heading"><span className="section-index">02</span><h2>{data.about.principlesTitle}</h2></div><div className="principle-grid">{data.about.principles.map((item, index) => <article key={item.title}><span>0{index + 1}</span><h3>{item.title}</h3><p>{item.text}</p></article>)}</div></section>
-    <section className="about-focus"><div className="section-heading"><span className="section-index">03</span><h2>{extra.focusTitle}</h2></div><ul>{extra.focuses.map((focus, index) => <li key={focus}><span>{String(index + 1).padStart(2, "0")}</span>{focus}</li>)}</ul></section>
-    <section className="tools-section"><div className="section-heading"><span className="section-index">04</span><h2>{extra.toolsTitle}</h2></div><div className="tools-grid">{extra.tools.map((group) => <article key={group.title}><h3>{group.title}</h3><ul>{group.items.map((item) => <li key={item}>{item}</li>)}</ul></article>)}</div></section>
-    <section className="education-block"><div><span className="section-index">05</span><h2>{data.about.educationTitle}</h2></div><div><strong>{data.about.education}</strong><span>{data.about.educationMeta}</span></div></section>
-  </div>;
-}
+export default async function AboutPage({ params }: Props) { const { locale } = await params; if (!isLocale(locale)) notFound(); const { profile, education, awards, skills } = await getSiteData(); const groups = Array.from(new Set(skills.map((skill) => skill.category))); return <div className="section-shell page-shell"><PageIntro eyebrow="ABOUT / 关于" title="从经贸学习出发，持续向真实业务与数字化应用靠近。" lead="这里呈现与求职相关的教育、能力与荣誉信息；内容与首页和简历共享同一份结构化资料。" /><section className="about-story"><aside className="about-profile-index"><span className="eyebrow">PROFILE / {profile.monogram}</span><strong>{profile.monogram}</strong><ol>{profile.highlights.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>)}</ol></aside><div className="story-copy"><span className="section-index">01</span><h2>本人介绍</h2>{profile.about.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div></section><section className="about-focus"><div className="section-heading"><span className="section-index">02</span><h2>核心能力</h2></div><ul>{groups.map((group, index) => <li key={group}><span>{String(index + 1).padStart(2, "0")}</span>{group}</li>)}</ul></section><section className="tools-section"><div className="section-heading"><span className="section-index">03</span><h2>技能与方法</h2></div><div className="tools-grid">{groups.map((group) => <article key={group}><h3>{group}</h3><ul>{skills.filter((skill) => skill.category === group).map((skill) => <li key={skill.id}>{skill.name}</li>)}</ul></article>)}</div></section><section className="education-block"><div><span className="section-index">04</span><h2>教育背景</h2></div><div>{education.map((item) => <div key={item.id}><strong>{item.school} · {item.degree} · {item.major}</strong><span>{item.period} · {item.status === "graduated" ? "已毕业" : "在读"}{item.rank ? ` · ${item.rank}` : ""}</span></div>)}</div></section><section className="about-awards"><span className="section-index">05</span><h2>荣誉与奖项</h2><ul className="award-grid">{awards.map((award) => <li key={award.id}>{award.date ? `${award.date} · ` : ""}{award.title}</li>)}</ul></section></div>; }

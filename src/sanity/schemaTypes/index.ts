@@ -1,302 +1,69 @@
-import { defineArrayMember, defineField, defineType } from 'sanity';
+import { defineArrayMember, defineField, defineType } from "sanity";
 
-const stringArray = (name: string, title: string) =>
-  defineField({
-    name,
-    title,
-    type: 'array',
-    of: [defineArrayMember({ type: 'string' })],
-  });
+const strings = (name: string, title: string) => defineField({ name, title, type: "array", of: [defineArrayMember({ type: "string" })] });
+const text = (name: string, title: string) => defineField({ name, title, type: "text", rows: 4 });
+const order = defineField({ name: "order", title: "排序", type: "number", initialValue: 0 });
 
-const text = (name: string, title: string) =>
-  defineField({ name, title, type: 'text', rows: 4 });
-
-const processStep = defineType({
-  name: 'processStep',
-  title: '过程步骤',
-  type: 'object',
-  fields: [
-    defineField({ name: 'title', title: '步骤名称', type: 'string' }),
-    text('text', '步骤说明'),
-  ],
-});
-
-const projectContent = defineType({
-  name: 'projectContent',
-  title: '项目语言版本',
-  type: 'object',
-  fields: [
-    defineField({ name: 'title', title: '标题', type: 'string' }),
-    defineField({ name: 'subtitle', title: '副标题', type: 'string' }),
-    text('summary', '摘要'),
-    text('background', '项目背景'),
-    stringArray('problem', '核心问题'),
-    stringArray('responsibilities', '我的职责'),
-    defineField({ name: 'process', title: '工作过程', type: 'array', of: [defineArrayMember({ type: 'processStep' })] }),
-    stringArray('outcomes', '项目成果'),
-    text('reflection', '限制与反思'),
-    text('evidenceNote', '证据说明'),
-  ],
-});
-
-const nav = defineType({
-  name: 'navCopy',
-  title: '导航文案',
-  type: 'object',
-  fields: ['home', 'about', 'projects', 'works', 'resume', 'contact'].map((name) =>
-    defineField({ name, title: name, type: 'string' }),
-  ),
-});
-
-const common = defineType({
-  name: 'commonCopy',
-  title: '通用文案',
-  type: 'object',
-  fields: [
-    ['viewProjects', '查看项目'], ['contactMe', '联系我'], ['downloadResume', '下载公开简历'],
-  ].map(([name, title]) => defineField({ name, title, type: 'string' })),
-});
-
-const homeContent = defineType({
-  name: 'homeContent',
-  title: '首页内容',
-  type: 'object',
-  fields: [
-    defineField({ name: 'eyebrow', title: '眉题', type: 'string' }),
-    defineField({ name: 'title', title: '主标题', type: 'string' }),
-    text('intro', '个人简介'),
-    defineField({ name: 'status', title: '状态', type: 'string' }),
-    defineField({
-      name: 'focuses', title: '关注方向', type: 'array',
-      of: [defineArrayMember({ type: 'object', fields: [
-        defineField({ name: 'index', title: '编号', type: 'string' }),
-        defineField({ name: 'title', title: '标题', type: 'string' }),
-        text('text', '说明'),
-      ] })],
-    }),
-  ],
-});
-
-const aboutContent = defineType({
-  name: 'aboutContent',
-  title: '关于页内容',
-  type: 'object',
-  fields: [
-    defineField({ name: 'eyebrow', title: '眉题', type: 'string' }),
-    defineField({ name: 'title', title: '标题', type: 'string' }),
-    text('lead', '引导文字'),
-    defineField({ name: 'storyTitle', title: '个人介绍标题', type: 'string' }),
-    stringArray('story', '个人故事'),
-    defineField({ name: 'principlesTitle', title: '做事方式标题', type: 'string' }),
-    defineField({
-      name: 'principles', title: '做事方式', type: 'array',
-      of: [defineArrayMember({ type: 'object', fields: [
-        defineField({ name: 'title', title: '标题', type: 'string' }),
-        text('text', '说明'),
-      ] })],
-    }),
-    defineField({ name: 'educationTitle', title: '教育背景标题', type: 'string' }),
-    defineField({ name: 'education', title: '教育背景', type: 'string' }),
-    defineField({ name: 'educationMeta', title: '教育背景补充', type: 'string' }),
-  ],
-});
-
-const resumeContent = defineType({
-  name: 'resumeContent',
-  title: '简历页内容',
-  type: 'object',
-  fields: [
-    defineField({ name: 'eyebrow', title: '眉题', type: 'string' }),
-    defineField({ name: 'title', title: '标题', type: 'string' }),
-    text('lead', '引导文字'),
-    ...['educationTitle', 'experienceTitle', 'projectsTitle', 'skillsTitle', 'awardsTitle', 'profileTitle'].map((name) => defineField({ name, title: name, type: 'string' })),
-    text('profile', '个人概述'),
-    defineField({
-      name: 'education', title: '教育经历', type: 'object', fields: [
-        defineField({ name: 'school', title: '学校', type: 'string' }),
-        defineField({ name: 'major', title: '专业', type: 'string' }),
-        defineField({ name: 'period', title: '时间', type: 'string' }),
-        defineField({ name: 'detail', title: '补充信息', type: 'string' }),
-      ],
-    }),
-    defineField({
-      name: 'experiences', title: '校园经历', type: 'array',
-      of: [defineArrayMember({ type: 'object', fields: [
-        defineField({ name: 'role', title: '角色', type: 'string' }),
-        defineField({ name: 'period', title: '时间', type: 'string' }),
-        stringArray('bullets', '经历要点'),
-      ] })],
-    }),
-    stringArray('skills', '技能与证书'),
-    stringArray('awards', '获奖情况'),
-  ],
-});
-
-const contactContent = defineType({
-  name: 'contactContent',
-  title: '联系页内容',
-  type: 'object',
-  fields: [
-    defineField({ name: 'eyebrow', title: '眉题', type: 'string' }),
-    defineField({ name: 'title', title: '标题', type: 'string' }),
-    text('lead', '引导文字'),
-    defineField({ name: 'emailTitle', title: '邮箱标题', type: 'string' }),
-    text('emailText', '邮箱说明'),
-    defineField({ name: 'githubTitle', title: 'GitHub 标题', type: 'string' }),
-    text('githubText', 'GitHub 说明'),
-    text('privacy', '隐私说明'),
-  ],
-});
-
-const siteLocaleContent = defineType({
-  name: 'siteLocaleContent',
-  title: '网站语言内容',
-  type: 'object',
-  fields: [
-    defineField({ name: 'brand', title: '网站名称', type: 'string' }),
-    defineField({ name: 'nav', title: '导航', type: 'navCopy' }),
-    defineField({ name: 'common', title: '通用按钮', type: 'commonCopy' }),
-    defineField({ name: 'home', title: '首页', type: 'homeContent' }),
-    defineField({ name: 'about', title: '关于我', type: 'aboutContent' }),
-    defineField({ name: 'resume', title: '简历', type: 'resumeContent' }),
-    defineField({ name: 'contact', title: '联系', type: 'contactContent' }),
-    defineField({
-      name: 'footer', title: '页脚', type: 'object', fields: [
-        defineField({ name: 'line', title: '页脚说明', type: 'string' }),
-        defineField({ name: 'rights', title: '版权说明', type: 'string' }),
-      ],
-    }),
-  ],
-});
-
-const toolGroup = defineType({
-  name: 'toolGroup',
-  title: '工具分组',
-  type: 'object',
-  fields: [defineField({ name: 'title', title: '分组名称', type: 'string' }), stringArray('items', '工具列表')],
-});
-
-const siteCopy = defineType({
-  name: 'siteCopy',
-  title: '网站辅助文案',
-  type: 'object',
-  fields: [
-    defineField({
-      name: 'ui', title: '通用界面文案', type: 'object', fields: [
-        'personName', 'latinName', 'monogram', 'homeAria', 'menuOpen', 'menuClose', 'primaryNavAria', 'footerGithub',
-        'profileIndexLabel', 'focusIndexLabel', 'projectLabel', 'evidenceNoteLabel', 'projectPaginationAria',
-        'projectFilterAria', 'emailLabel', 'githubLabel', 'githubDisplay', 'privacyLabel', 'resumeOpenInNewTab', 'emailSubject',
-      ].map((name) => defineField({ name, title: name, type: 'string' })),
-    }),
-    defineField({
-      name: 'migration', title: '域名迁移提示', type: 'object', fields: [
-        'eyebrow', 'close', 'title', 'description', 'visit', 'stay', 'displayDomain',
-      ].map((name) => defineField({ name, title: name, type: 'string' })),
-    }),
-    defineField({
-      name: 'home', title: '首页辅助文案', type: 'object', fields: [
-        ...['projectsKicker', 'projectsTitle', 'worksKicker', 'worksTitle', 'worksIntro', 'currentKicker', 'currentTitle', 'viewAllProjects', 'viewWorks'].map((name) => defineField({ name, title: name, type: 'string' })),
-        stringArray('currentItems', '当前事项'), stringArray('identity', '个人信息'),
-      ],
-    }),
-    defineField({
-      name: 'projects', title: '项目页辅助文案', type: 'object', fields: [
-        ...['eyebrow', 'title', 'lead', 'noteTitle', 'note', 'roleLabel', 'viewCase', 'empty'].map((name) => defineField({ name, title: name, type: 'string' })),
-        defineField({ name: 'categories', title: '项目分类名称', type: 'object', fields: ['all', 'crossBorder', 'aigc', 'digitalTrade', 'product', 'dataResearch', 'ruralResearch'].map((name) => defineField({ name, title: name, type: 'string' })) }),
-        defineField({ name: 'statuses', title: '项目状态名称', type: 'object', fields: ['completed', 'ongoing', 'archived'].map((name) => defineField({ name, title: name, type: 'string' })) }),
-      ],
-    }),
-    defineField({
-      name: 'works', title: '作品页辅助文案', type: 'object', fields: [
-        ...['eyebrow', 'title', 'lead', 'note', 'relatedProject', 'view'].map((name) => defineField({ name, title: name, type: 'string' })),
-        defineField({ name: 'types', title: '作品类型名称', type: 'object', fields: ['productSystem', 'researchReport', 'dataAnalysis', 'prototype', 'presentation', 'visualDesign', 'video'].map((name) => defineField({ name, title: name, type: 'string' })) }),
-        defineField({ name: 'statuses', title: '作品状态名称', type: 'object', fields: ['public', 'organizing', 'summaryOnly', 'private'].map((name) => defineField({ name, title: name, type: 'string' })) }),
-      ],
-    }),
-    defineField({
-      name: 'detail', title: '项目详情辅助文案', type: 'object', fields: ['overview', 'background', 'questions', 'responsibilities', 'process', 'outcomes', 'evidence', 'reflection', 'previous', 'next', 'all', 'period', 'status', 'level', 'role'].map((name) => defineField({ name, title: name, type: 'string' })),
-    }),
-    defineField({
-      name: 'about', title: '关于页辅助文案', type: 'object', fields: [
-        stringArray('profileIndex', '个人索引'),
-        defineField({ name: 'focusTitle', title: '关注方向标题', type: 'string' }), stringArray('focuses', '关注方向'),
-        defineField({ name: 'toolsTitle', title: '工具与方法标题', type: 'string' }),
-        defineField({ name: 'tools', title: '工具与方法', type: 'array', of: [defineArrayMember({ type: 'toolGroup' })] }),
-      ],
-    }),
-    defineField({
-      name: 'contact', title: '联系页辅助文案', type: 'object', fields: [
-        defineField({ name: 'topicsTitle', title: '联系主题标题', type: 'string' }), stringArray('topics', '联系主题'),
-      ],
-    }),
-    defineField({ name: 'resume', title: '简历辅助文案', type: 'object', fields: [text('privacy', '隐私说明')] }),
-  ],
-});
-
-const siteSettings = defineType({
-  name: 'siteSettings',
-  title: '网站设置',
-  type: 'document',
-  fields: [
-    defineField({ name: 'title', title: '文档名称', type: 'string', initialValue: 'Wang Bo Personal Site' }),
-    defineField({
-      name: 'shared', title: '全站联系方式', type: 'object', fields: [
-        defineField({ name: 'email', title: '邮箱', type: 'string' }),
-        defineField({ name: 'github', title: 'GitHub 地址', type: 'url' }),
-        defineField({ name: 'site', title: '网站地址', type: 'url' }),
-        defineField({ name: 'migrationSite', title: '迁移目标网站', type: 'url' }),
-        defineField({ name: 'resumePath', title: '公开简历路径', type: 'string' }),
-      ],
-    }),
-    defineField({ name: 'content', title: '网站内容', type: 'siteLocaleContent' }),
-    defineField({ name: 'copy', title: '界面辅助文案', type: 'siteCopy' }),
-  ],
-  preview: { select: { title: 'title' }, prepare: ({ title }) => ({ title: title || '网站设置' }) },
-});
+const attachment = defineType({ name: "projectAttachment", title: "项目附件 / 证据", type: "object", fields: [defineField({ name: "title", title: "名称", type: "string" }), defineField({ name: "kind", title: "类型", type: "string", options: { list: ["report", "presentation", "system", "research", "other"] } }), text("description", "说明"), defineField({ name: "href", title: "公开链接（可选）", type: "url" })] });
+const galleryItem = defineType({ name: "projectGalleryItem", title: "项目图片", type: "image", options: { hotspot: true }, fields: [defineField({ name: "alt", title: "替代文字", type: "string" }), defineField({ name: "caption", title: "说明", type: "string" })] });
+const projectLink = defineType({ name: "projectLink", title: "项目链接", type: "object", fields: [defineField({ name: "label", title: "链接名称", type: "string" }), defineField({ name: "href", title: "地址", type: "url" }), defineField({ name: "type", title: "类型", type: "string", options: { list: ["website", "github", "document", "demo"] } })] });
 
 const project = defineType({
-  name: 'project',
-  title: '项目',
-  type: 'document',
+  name: "project", title: "项目案例", type: "document",
   fields: [
-    defineField({ name: 'title', title: '管理标题', type: 'string' }),
-    defineField({ name: 'slug', title: '项目网址标识', type: 'slug', options: { source: 'title', maxLength: 96 }, validation: (rule) => rule.required() }),
-    defineField({ name: 'order', title: '排序', type: 'number', initialValue: 0 }),
-    defineField({ name: 'category', title: '分类', type: 'array', of: [defineArrayMember({ type: 'string' })], options: { list: ['cross-border', 'aigc', 'digital-trade', 'product', 'data-research', 'rural-research'] } }),
-    defineField({ name: 'year', title: '年份', type: 'string' }),
-    defineField({ name: 'period', title: '时间', type: 'string' }),
-    defineField({ name: 'level', title: '项目性质', type: 'string' }),
-    defineField({ name: 'status', title: '状态', type: 'string', options: { list: [{ title: '已完成', value: 'completed' }, { title: '进行中', value: 'ongoing' }, { title: '已归档', value: 'archived' }] } }),
-    stringArray('role', '角色'), stringArray('tags', '标签'),
-    defineField({ name: 'featured', title: '首页精选', type: 'boolean', initialValue: false }),
-    defineField({ name: 'links', title: '外部链接', type: 'array', of: [defineArrayMember({ type: 'object', fields: [
-      defineField({ name: 'label', title: '链接名称', type: 'string' }),
-      defineField({ name: 'href', title: '地址', type: 'url' }), defineField({ name: 'type', title: '链接类型', type: 'string', options: { list: ['website', 'github', 'document', 'demo'] } }),
-    ] })] }),
-    defineField({ name: 'content', title: '项目详情', type: 'projectContent' }),
-  ],
-  preview: { select: { title: 'content.title', subtitle: 'year' } },
+    defineField({ name: "title", title: "项目名称", type: "string", validation: (rule) => rule.required() }),
+    defineField({ name: "slug", title: "网址标识", type: "slug", options: { source: "title", maxLength: 96 }, validation: (rule) => rule.required() }),
+    defineField({ name: "category", title: "项目分类", type: "array", of: [defineArrayMember({ type: "string" })], options: { list: ["cross-border", "aigc", "digital-trade", "product", "data-research", "rural-research"] } }),
+    defineField({ name: "status", title: "状态", type: "string", options: { list: [{ title: "已完成", value: "completed" }, { title: "进行中", value: "ongoing" }, { title: "已归档", value: "archived" }] } }),
+    defineField({ name: "period", title: "项目时间", type: "string" }), strings("role", "我的角色"), text("summary", "项目摘要"), text("background", "项目背景"), strings("responsibilities", "核心任务"), strings("actions", "我做了什么"), strings("results", "成果与数据"), strings("skills", "使用技能"),
+    defineField({ name: "gallery", title: "作品 / 证据图片", type: "array", of: [defineArrayMember({ type: "projectGalleryItem" })] }), defineField({ name: "attachments", title: "作品 / 证据材料", type: "array", of: [defineArrayMember({ type: "projectAttachment" })] }), defineField({ name: "links", title: "公开链接", type: "array", of: [defineArrayMember({ type: "projectLink" })] }),
+    defineField({ name: "featured", title: "首页精选", type: "boolean", initialValue: false }), defineField({ name: "resumeVisible", title: "在简历展示", type: "boolean", initialValue: true }), order,
+    defineField({ name: "content", title: "旧版详情（兼容字段）", type: "legacyProjectContent", description: "仅用于读取旧数据；迁移后请改用上方结构化字段。" }), defineField({ name: "year", title: "旧版年份（兼容字段）", type: "string", hidden: true }), defineField({ name: "level", title: "旧版项目性质（兼容字段）", type: "string", hidden: true }), strings("tags", "旧版标签（兼容字段）"),
+  ], preview: { select: { title: "title", subtitle: "period" } },
 });
 
-const work = defineType({
-  name: 'work',
-  title: '作品',
-  type: 'document',
-  fields: [
-    defineField({ name: 'id', title: '作品标识', type: 'string', validation: (rule) => rule.required() }),
-    defineField({ name: 'order', title: '排序', type: 'number', initialValue: 0 }),
-    defineField({ name: 'title', title: '标题', type: 'string' }),
-    defineField({ name: 'type', title: '作品类型', type: 'string', options: { list: ['product-system', 'research-report', 'data-analysis', 'prototype', 'presentation', 'visual-design', 'video'] } }),
-    defineField({ name: 'year', title: '年份', type: 'string' }), text('description', '说明'),
-    defineField({ name: 'relatedProjectSlug', title: '关联项目标识', type: 'string' }),
-    defineField({ name: 'status', title: '状态', type: 'string', options: { list: ['public', 'organizing', 'summary-only', 'private'] } }),
-    defineField({ name: 'href', title: '公开链接', type: 'url' }), defineField({ name: 'downloadHref', title: '下载链接', type: 'string' }),
-    defineField({ name: 'isPublic', title: '是否公开', type: 'boolean', initialValue: false }), defineField({ name: 'featured', title: '首页精选', type: 'boolean', initialValue: false }),
+const profile = defineType({ name: "profile", title: "个人资料", type: "document", fields: [defineField({ name: "name", title: "姓名", type: "string" }), defineField({ name: "latinName", title: "英文姓名", type: "string" }), defineField({ name: "monogram", title: "姓名缩写", type: "string" }), defineField({ name: "professionalTitle", title: "职业定位", type: "string" }), text("valueProposition", "一句话价值主张"), text("intro", "简介"), defineField({ name: "location", title: "所在地", type: "string" }), defineField({ name: "availability", title: "求职状态", type: "string" }), defineField({ name: "email", title: "邮箱", type: "string" }), defineField({ name: "github", title: "GitHub", type: "url" }), defineField({ name: "site", title: "网站地址", type: "url" }), defineField({ name: "resumePath", title: "公开简历路径", type: "string" }), strings("highlights", "核心证明"), strings("about", "关于我的段落")], preview: { select: { title: "name", subtitle: "professionalTitle" } } });
+const education = defineType({ name: "education", title: "教育经历", type: "document", fields: [defineField({ name: "school", title: "学校", type: "string" }), defineField({ name: "degree", title: "学历", type: "string" }), defineField({ name: "major", title: "专业", type: "string" }), defineField({ name: "period", title: "时间", type: "string" }), defineField({ name: "status", title: "状态", type: "string", options: { list: [{ title: "已毕业", value: "graduated" }, { title: "在读", value: "studying" }] } }), defineField({ name: "rank", title: "排名", type: "string" }), text("summary", "说明"), order], preview: { select: { title: "school", subtitle: "major" } } });
+const experience = defineType({ name: "experience", title: "经历", type: "document", fields: [defineField({ name: "organization", title: "组织", type: "string" }), defineField({ name: "role", title: "角色", type: "string" }), defineField({ name: "period", title: "时间", type: "string" }), text("summary", "概述"), strings("bullets", "经历要点"), order], preview: { select: { title: "role", subtitle: "organization" } } });
+const award = defineType({ name: "award", title: "荣誉 / 奖项", type: "document", fields: [defineField({ name: "title", title: "奖项名称", type: "string" }), defineField({ name: "issuer", title: "颁发方", type: "string" }), defineField({ name: "date", title: "时间", type: "string" }), text("description", "说明"), defineField({ name: "featured", title: "首页展示", type: "boolean", initialValue: false }), order], preview: { select: { title: "title", subtitle: "date" } } });
+const skill = defineType({ name: "skill", title: "技能", type: "document", fields: [defineField({ name: "name", title: "技能名称", type: "string" }), defineField({ name: "category", title: "能力类别", type: "string" }), text("description", "说明"), order], preview: { select: { title: "name", subtitle: "category" } } });
+const certificate = defineType({ name: "certificate", title: "证书", type: "document", fields: [defineField({ name: "name", title: "证书名称", type: "string" }), defineField({ name: "issuer", title: "颁发方", type: "string" }), defineField({ name: "date", title: "时间", type: "string" }), order], preview: { select: { title: "name", subtitle: "date" } } });
+
+const legacyProcessStep = defineType({ name: "legacyProcessStep", title: "旧版过程步骤", type: "object", fields: [defineField({ name: "title", title: "步骤名称", type: "string" }), text("text", "步骤说明")] });
+const legacyProjectContent = defineType({ name: "legacyProjectContent", title: "旧版项目详情", type: "object", fields: [defineField({ name: "title", title: "标题", type: "string" }), defineField({ name: "subtitle", title: "副标题", type: "string" }), text("summary", "摘要"), text("background", "项目背景"), strings("problem", "核心问题"), strings("responsibilities", "我的职责"), defineField({ name: "process", title: "工作过程", type: "array", of: [defineArrayMember({ type: "legacyProcessStep" })] }), strings("outcomes", "项目成果"), text("reflection", "限制与反思"), text("evidenceNote", "证据说明")] });
+
+const legacyFocus = defineType({ name: "legacyFocus", title: "旧版关注方向", type: "object", fields: [defineField({ name: "index", title: "序号", type: "string" }), defineField({ name: "title", title: "标题", type: "string" }), text("text", "说明")] });
+const legacyTitleText = defineType({ name: "legacyTitleText", title: "旧版标题说明", type: "object", fields: [defineField({ name: "title", title: "标题", type: "string" }), text("text", "说明")] });
+const legacyResumeExperience = defineType({ name: "legacyResumeExperience", title: "旧版经历", type: "object", fields: [defineField({ name: "role", title: "角色", type: "string" }), defineField({ name: "period", title: "时间", type: "string" }), strings("bullets", "要点")] });
+const legacyToolGroup = defineType({ name: "legacyToolGroup", title: "旧版工具组", type: "object", fields: [defineField({ name: "title", title: "标题", type: "string" }), strings("items", "条目")] });
+const legacySiteContent = defineType({
+  name: "legacySiteContent", title: "旧版页面内容", type: "object", fields: [
+    defineField({ name: "brand", title: "品牌名称", type: "string" }),
+    defineField({ name: "common", title: "通用按钮文案", type: "object", fields: [defineField({ name: "contactMe", title: "联系我", type: "string" }), defineField({ name: "downloadResume", title: "下载简历", type: "string" }), defineField({ name: "viewProjects", title: "查看项目", type: "string" })] }),
+    defineField({ name: "nav", title: "旧版导航", type: "object", fields: [defineField({ name: "home", title: "首页", type: "string" }), defineField({ name: "projects", title: "项目", type: "string" }), defineField({ name: "works", title: "作品", type: "string" }), defineField({ name: "resume", title: "简历", type: "string" }), defineField({ name: "about", title: "关于", type: "string" }), defineField({ name: "contact", title: "联系", type: "string" })] }),
+    defineField({ name: "home", title: "旧版首页", type: "object", fields: [defineField({ name: "eyebrow", title: "眉题", type: "string" }), defineField({ name: "title", title: "标题", type: "string" }), text("intro", "简介"), defineField({ name: "status", title: "状态", type: "string" }), defineField({ name: "focuses", title: "关注方向", type: "array", of: [defineArrayMember({ type: "legacyFocus" })] })] }),
+    defineField({ name: "about", title: "旧版关于页", type: "object", fields: [defineField({ name: "eyebrow", title: "眉题", type: "string" }), defineField({ name: "title", title: "标题", type: "string" }), text("lead", "引言"), defineField({ name: "storyTitle", title: "介绍标题", type: "string" }), strings("story", "介绍段落"), defineField({ name: "educationTitle", title: "教育标题", type: "string" }), defineField({ name: "education", title: "教育信息", type: "string" }), defineField({ name: "educationMeta", title: "教育补充", type: "string" }), defineField({ name: "principlesTitle", title: "做事方式标题", type: "string" }), defineField({ name: "principles", title: "做事方式", type: "array", of: [defineArrayMember({ type: "legacyTitleText" })] })] }),
+    defineField({ name: "resume", title: "旧版简历页", type: "object", fields: [defineField({ name: "eyebrow", title: "眉题", type: "string" }), defineField({ name: "title", title: "标题", type: "string" }), text("lead", "引言"), defineField({ name: "profileTitle", title: "概述标题", type: "string" }), text("profile", "概述"), defineField({ name: "educationTitle", title: "教育标题", type: "string" }), defineField({ name: "education", title: "教育背景", type: "object", fields: [defineField({ name: "school", title: "学校", type: "string" }), defineField({ name: "major", title: "专业", type: "string" }), defineField({ name: "period", title: "时间", type: "string" }), defineField({ name: "detail", title: "补充", type: "string" })] }), defineField({ name: "experienceTitle", title: "经历标题", type: "string" }), defineField({ name: "experiences", title: "经历", type: "array", of: [defineArrayMember({ type: "legacyResumeExperience" })] }), defineField({ name: "projectsTitle", title: "项目标题", type: "string" }), defineField({ name: "awardsTitle", title: "奖项标题", type: "string" }), strings("awards", "奖项"), defineField({ name: "skillsTitle", title: "技能标题", type: "string" }), strings("skills", "技能") ] }),
+    defineField({ name: "contact", title: "旧版联系页", type: "object", fields: [defineField({ name: "eyebrow", title: "眉题", type: "string" }), defineField({ name: "title", title: "标题", type: "string" }), text("lead", "引言"), defineField({ name: "emailTitle", title: "邮箱标题", type: "string" }), text("emailText", "邮箱说明"), defineField({ name: "githubTitle", title: "GitHub 标题", type: "string" }), text("githubText", "GitHub 说明"), text("privacy", "隐私说明")] }),
+    defineField({ name: "footer", title: "旧版页脚", type: "object", fields: [defineField({ name: "line", title: "文案", type: "string" }), defineField({ name: "rights", title: "版权", type: "string" })] }),
   ],
-  preview: { select: { title: 'title', subtitle: 'year' } },
+});
+const legacySiteCopy = defineType({
+  name: "legacySiteCopy", title: "旧版界面文案", type: "object", fields: [
+    defineField({ name: "about", title: "关于页文案", type: "object", fields: [defineField({ name: "focusTitle", title: "关注方向标题", type: "string" }), strings("focuses", "关注方向"), defineField({ name: "profileIndex", title: "资料索引", type: "array", of: [defineArrayMember({ type: "string" })] }), defineField({ name: "toolsTitle", title: "工具标题", type: "string" }), defineField({ name: "tools", title: "工具", type: "array", of: [defineArrayMember({ type: "legacyToolGroup" })] })] }),
+    defineField({ name: "contact", title: "联系页文案", type: "object", fields: [defineField({ name: "topicsTitle", title: "主题标题", type: "string" }), strings("topics", "联系主题")] }),
+    defineField({ name: "detail", title: "项目详情文案", type: "object", fields: ["all", "background", "evidence", "level", "next", "outcomes", "overview", "period", "previous", "process", "questions", "reflection", "responsibilities", "role", "status"].map((name) => defineField({ name, title: name, type: "string" })) }),
+    defineField({ name: "home", title: "首页文案", type: "object", fields: [strings("currentItems", "当前事项"), defineField({ name: "currentKicker", title: "当前眉题", type: "string" }), defineField({ name: "currentTitle", title: "当前标题", type: "string" }), strings("identity", "身份信息"), defineField({ name: "projectsKicker", title: "项目眉题", type: "string" }), defineField({ name: "projectsTitle", title: "项目标题", type: "string" }), defineField({ name: "viewAllProjects", title: "查看项目", type: "string" }), defineField({ name: "viewWorks", title: "查看作品", type: "string" }), text("worksIntro", "作品说明"), defineField({ name: "worksKicker", title: "作品眉题", type: "string" }), defineField({ name: "worksTitle", title: "作品标题", type: "string" })] }),
+    defineField({ name: "migration", title: "迁移提示文案", type: "object", fields: ["close", "description", "displayDomain", "eyebrow", "stay", "title", "visit"].map((name) => defineField({ name, title: name, type: "string" })) }),
+    defineField({ name: "projects", title: "项目页文案", type: "object", fields: [defineField({ name: "categories", title: "分类", type: "object", fields: ["aigc", "all", "crossBorder", "dataResearch", "digitalTrade", "product", "ruralResearch"].map((name) => defineField({ name, title: name, type: "string" })) }), ...["empty", "eyebrow", "lead", "note", "noteTitle", "roleLabel", "title", "viewCase"].map((name) => defineField({ name, title: name, type: name === "lead" || name === "note" ? "text" : "string" })), defineField({ name: "statuses", title: "状态文案", type: "object", fields: ["archived", "completed", "ongoing"].map((name) => defineField({ name, title: name, type: "string" })) })] }),
+    defineField({ name: "resume", title: "简历页文案", type: "object", fields: [text("privacy", "隐私说明")] }),
+    defineField({ name: "ui", title: "界面通用文案", type: "object", fields: ["emailLabel", "emailSubject", "evidenceNoteLabel", "focusIndexLabel", "footerGithub", "githubDisplay", "githubLabel", "homeAria", "latinName", "menuClose", "menuOpen", "monogram", "personName", "primaryNavAria", "privacyLabel", "profileIndexLabel", "projectFilterAria", "projectLabel", "projectPaginationAria", "resumeOpenInNewTab"].map((name) => defineField({ name, title: name, type: "string" })) }),
+    defineField({ name: "works", title: "作品页文案", type: "object", fields: [...["eyebrow", "lead", "note", "relatedProject", "title", "view"].map((name) => defineField({ name, title: name, type: name === "lead" || name === "note" ? "text" : "string" })), defineField({ name: "statuses", title: "状态", type: "object", fields: ["organizing", "private", "public", "summaryOnly"].map((name) => defineField({ name, title: name, type: "string" })) }), defineField({ name: "types", title: "类型", type: "object", fields: ["dataAnalysis", "presentation", "productSystem", "prototype", "researchReport", "video", "visualDesign"].map((name) => defineField({ name, title: name, type: "string" })) })] }),
+  ],
 });
 
-export const schemaTypes = [
-  processStep, projectContent, nav, common, homeContent, aboutContent, resumeContent,
-  contactContent, siteLocaleContent, toolGroup, siteCopy, siteSettings, project, work,
-];
+// Existing documents remain intact and editable while the migration is rolled out.
+const legacySettings = defineType({ name: "siteSettings", title: "旧版网站设置（迁移兼容）", type: "document", fields: [defineField({ name: "title", title: "文档名称", type: "string" }), defineField({ name: "shared", title: "旧版联系方式", type: "object", fields: [defineField({ name: "email", title: "邮箱", type: "string" }), defineField({ name: "github", title: "GitHub", type: "url" }), defineField({ name: "site", title: "网站", type: "url" }), defineField({ name: "resumePath", title: "简历路径", type: "string" })] }), defineField({ name: "content", title: "旧版页面内容", type: "legacySiteContent", description: "仅用于兼容读取和核对旧数据；日常维护请使用新的结构化文档。" }), defineField({ name: "copy", title: "旧版界面文案", type: "legacySiteCopy", description: "旧字段已登记为兼容内容，不影响新网站的结构化数据。" })], preview: { select: { title: "title" } } });
+const legacyWork = defineType({ name: "work", title: "旧版作品（迁移兼容）", type: "document", fields: [defineField({ name: "id", title: "标识", type: "string" }), defineField({ name: "title", title: "标题", type: "string" }), defineField({ name: "relatedProjectSlug", title: "关联项目", type: "string" }), text("description", "说明"), defineField({ name: "href", title: "链接", type: "url" }), defineField({ name: "downloadHref", title: "下载路径", type: "string" })], preview: { select: { title: "title" } } });
+
+export const schemaTypes = [attachment, galleryItem, projectLink, legacyProcessStep, legacyProjectContent, legacyFocus, legacyTitleText, legacyResumeExperience, legacyToolGroup, legacySiteContent, legacySiteCopy, profile, project, education, experience, award, skill, certificate, legacySettings, legacyWork];

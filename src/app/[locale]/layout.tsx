@@ -5,38 +5,13 @@ import { ScrollReveal } from "@/components/ScrollReveal";
 import { isLocale, locales } from "@/lib/content";
 import { getSiteData } from "@/lib/site-data";
 
-// Content is managed in Sanity and should be read again after every publish.
 export const dynamic = "force-dynamic";
-
-export function generateStaticParams() {
-  return locales.map((locale) => ({ locale }));
-}
+export function generateStaticParams() { return locales.map((locale) => ({ locale })); }
 
 export default async function LocaleLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }> }) {
-  const { locale: rawLocale } = await params;
-  if (!isLocale(rawLocale)) notFound();
-  const snapshot = await getSiteData();
-  const data = snapshot.content[rawLocale];
-  const ui = snapshot.siteCopy[rawLocale].ui;
-  const personJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    name: ui.personName,
-    url: data.shared.site,
-    image: `${data.shared.site}/profile-wangbo.webp`,
-    email: `mailto:${data.shared.email}`,
-    alumniOf: { "@type": "CollegeOrUniversity", name: "三江学院" },
-    sameAs: [data.shared.github],
-    knowsAbout: ["Cross-border e-commerce", "International trade", "AIGC"],
-  };
-
-  return (
-    <div className="site-frame" lang="zh-CN">
-      <ScrollReveal />
-      <Header locale={rawLocale} nav={data.nav} brand={data.brand} ui={ui} />
-      <main>{children}</main>
-      <Footer locale={rawLocale} data={data} ui={ui} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c") }} />
-    </div>
-  );
+  const { locale } = await params;
+  if (!isLocale(locale)) notFound();
+  const { profile } = await getSiteData();
+  const personJsonLd = { "@context": "https://schema.org", "@type": "Person", name: profile.name, url: profile.site, image: `${profile.site}/profile-wangbo.webp`, email: `mailto:${profile.email}`, alumniOf: { "@type": "CollegeOrUniversity", name: "三江学院" }, sameAs: [profile.github], knowsAbout: ["Cross-border e-commerce", "Market research", "Data analysis", "AI workflows"] };
+  return <div className="site-frame" lang="zh-CN"><ScrollReveal /><Header locale={locale} profile={profile} /><main>{children}</main><Footer locale={locale} profile={profile} /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c") }} /></div>;
 }

@@ -1,0 +1,56 @@
+import type { PortfolioData } from "./types";
+
+export const portfolioDefaults: PortfolioData = {
+  profile: {
+    name: "王波", latinName: "WANG BO", monogram: "WB",
+    professionalTitle: "跨境业务与数字化方向求职作品集",
+    valueProposition: "以市场研究、数据洞察与 AI 工作流，把业务问题转化为可执行的项目方案。",
+    intro: "2026 届国际经济与贸易本科毕业生，关注跨境电商、数字营销与 AIGC 的实际应用，积累了市场分析、内容策划、数据处理及项目执行等方面的实践经验。",
+    location: "南京", availability: "开放交流与合作",
+    email: "wangbo030127@gmail.com", github: "https://github.com/03Wan", site: "https://www.myboverse.com", resumePath: "/resume-wangbo-public.pdf",
+    highlights: ["国际经济与贸易本科 · 已毕业", "专业排名前 15%", "国家级大学生创新创业训练项目第一主持人", "校优秀毕业生 · 校优秀毕业论文"],
+    about: [
+      "我毕业于三江学院国际经济与贸易专业，系统学习国际贸易、统计学、计量经济学与国际结算等课程，专业排名前 15%。",
+      "在项目实践中，我持续探索市场研究、跨境业务与 AI 工具如何共同服务清晰的业务判断；学生组织经历也训练了我的统筹、沟通与执行能力。",
+      "我把 AI 视为提升研究、表达和协作效率的工具，希望继续在商业理解、数据洞察和数字化应用的交叉处积累可复核的成果。",
+    ],
+  },
+  education: [{ id: "sanjiang-ib", school: "三江学院", degree: "本科", major: "国际经济与贸易", period: "2022.09 — 2026.06", status: "graduated", rank: "专业排名前 15%", summary: "已毕业", order: 1 }],
+  experiences: [
+    { id: "class-monitor", organization: "三江学院", role: "班长", period: "2022.09 — 2026.06", bullets: ["统筹 30+ 人班级日常事务，对接辅导员与学院，确保通知准确传达。", "主导班级团建、志愿活动与学风建设等活动 10+ 场。", "协助奖学金评定、考勤和心理健康等信息收集与整理。"], order: 1 },
+    { id: "youth-league", organization: "三江学院校团委组织部", role: "干事", period: "2024.05 — 2026.05", bullets: ["协助策划和执行主题团日、入团仪式等校级活动 10+ 场。", "负责策划方案和总结材料，积累正式写作与结构化表达经验。", "参与团员发展流程、档案整理和系统录入，确保数据准确、流程合规。"], order: 2 },
+  ],
+  awards: [
+    { id: "merit-student", title: "三好学生", date: "2022—2023", featured: true, order: 1 },
+    { id: "student-cadre", title: "优秀学生干部", date: "2022—2023", featured: true, order: 2 },
+    { id: "league-member", title: "优秀共青团员", date: "2024", featured: true, order: 3 },
+    { id: "ocale", title: "OCALE 全国跨境电商创新创业大赛团队三等奖", date: "2023", featured: true, order: 4 },
+    { id: "graduate-student", title: "校优秀毕业生", date: "2026", featured: true, order: 5 },
+    { id: "graduate-thesis", title: "校优秀毕业论文", date: "2026", featured: true, order: 6 },
+    { id: "business-innovation", title: "全国高校商业精英挑战赛创新创业竞赛创业模拟赛道三等奖", date: "2023", featured: false, order: 7 },
+    { id: "international-trade", title: "全国高校商业精英挑战赛国际贸易竞赛三等奖", date: "2023", featured: false, order: 8 },
+  ],
+  skills: [
+    { id: "market-research", name: "市场研究", category: "跨境业务与市场研究", description: "市场、渠道与用户问题梳理", order: 1 },
+    { id: "cross-border", name: "跨境电商", category: "跨境业务与市场研究", description: "平台、内容与目标市场适配", order: 2 },
+    { id: "excel", name: "Excel", category: "数据分析与商业洞察", description: "数据整理与基础分析", order: 3 },
+    { id: "stata", name: "Stata / SPSS", category: "数据分析与商业洞察", description: "统计与计量分析基础", order: 4 },
+    { id: "ai-workflow", name: "ChatGPT / Gemini / Codex", category: "AI 工具与数字化工作流", description: "研究、写作与工作流辅助", order: 5 },
+    { id: "delivery", name: "项目材料与演示表达", category: "AI 工具与数字化工作流", description: "方案、报告与演示材料整合", order: 6 },
+  ],
+  certificates: [
+    { id: "cet", name: "CET-4 / CET-6", order: 1 },
+    { id: "accounting", name: "全国初级会计证书", order: 2 },
+    { id: "mandarin", name: "普通话二级甲等", order: 3 },
+    { id: "cross-border-data", name: "跨境电商 B2B 数据运营职业技能高级等级证书", order: 4 },
+    { id: "computer", name: "全国计算机一级考试证书（优秀）", order: 5 },
+    { id: "office", name: "WPS / Microsoft Office", order: 6 },
+  ],
+  projects: [
+    { slug: "aigc-cross-border-research", title: "AIGC 应用于跨境电商出海的机制及对策研究", category: ["aigc", "cross-border", "data-research"], status: "completed", period: "2025.05 — 2026.05", role: ["第一主持人", "研究设计", "团队协调", "资料分析"], summary: "围绕 AIGC 在跨境电商内容生成、营销优化和跨文化适配中的应用机制，整理研究框架与阶段性对策。", background: "跨境内容需要兼顾平台规则、语言差异、文化语境和营销效率。项目把 AIGC 放进真实业务流程中审视，而非只讨论工具功能。", responsibilities: ["界定研究问题并搭建应用机制框架。", "组织团队分工、资料分析与阶段讨论。", "整合研究材料并明确结论边界。"], actions: ["梳理 AIGC、跨境营销与文化适配相关文献和案例。", "构建应用场景、影响机制与评价维度框架。", "组织资料编码、案例讨论和阶段性材料写作。"], results: ["形成 AIGC 跨境应用场景框架。", "完成阶段性资料分析与项目展示材料。", "沉淀待后续验证的对策框架，不将阶段判断表述为最终结论。"], skills: ["AIGC", "跨境电商", "市场研究", "项目统筹"], gallery: [], attachments: [{ title: "项目研究与展示材料", kind: "presentation", description: "阶段性研究框架与项目材料，暂不公开下载。" }], links: [], featured: true, resumeVisible: true, order: 1 },
+    { slug: "zhixuan-youfa", title: "智选优发", category: ["product", "aigc", "cross-border"], status: "completed", period: "2025 — 2026", role: ["项目策划", "产品结构设计", "功能流程梳理", "展示材料统筹"], summary: "面向跨境商品发布前环节，梳理素材检测、风险识别、优化建议和人工复核的决策辅助流程。", background: "跨境商品素材上线前需要同时检查内容质量、平台规则与目标市场适配。项目将分散的判断步骤组织为可复核的产品流程。", responsibilities: ["定义产品目标、用户对象与核心工作流。", "梳理素材录入、检测、建议、复核与报告流程。", "整合研究资料、功能结构与展示材料。"], actions: ["归纳跨境内容制作、平台审核与市场适配中的常见检查点。", "规划素材录入、风险提示、人工复核和报告输出模块。", "以流程图和结构化材料统一产品方案表达。"], results: ["形成产品结构与功能流程。", "沉淀素材检测与发布建议框架。", "完成检测报告结构和项目展示材料。"], skills: ["产品设计", "AIGC", "跨境电商", "流程梳理"], gallery: [], attachments: [{ title: "智选优发系统方案", kind: "system", description: "系统方案与功能流程说明。" }, { title: "项目展示材料", kind: "presentation", description: "用于沟通项目结构与工作流程。" }], links: [], featured: true, resumeVisible: true, order: 2 },
+    { slug: "digital-trade-barriers", title: "数字贸易壁垒对跨境电商发展的影响研究", category: ["digital-trade", "data-research", "cross-border"], status: "completed", period: "2025 — 2026", role: ["研究问题设计", "数据来源梳理", "变量设计", "模型设计", "论文写作"], summary: "围绕数据本地化政策、数字贸易限制与跨境电商发展之间的关系，设计多源面板数据与双向固定效应分析框架。", background: "数字贸易规则会影响数据流动、平台经营与跨境交易成本。项目结合 OECD Digital STRI、世界银行与 CEPII 等公开数据来源，建立可检验的研究设计。", responsibilities: ["界定研究问题与分析边界。", "梳理多源数据、指标口径和变量结构。", "整理文献并完成研究框架与论文内容。"], actions: ["核对不同数据来源、频率与口径。", "规划核心变量、控制变量和双向固定效应模型。", "整理稳健性、替代变量与机制分析的检验思路。"], results: ["形成研究问题与假设框架。", "完成多源数据清单、变量设计和模型设计。", "沉淀阶段性论文结构；不展示未经复核的实证结论。"], skills: ["数据研究", "Stata", "面板数据", "国际贸易"], gallery: [], attachments: [{ title: "研究框架与数据清单", kind: "research", description: "数据来源、变量与模型设计摘要。" }], links: [], featured: true, resumeVisible: true, order: 3 },
+    { slug: "jiangsu-rural-fieldwork", title: "江苏乡村产业与文旅融合实地调研", category: ["rural-research", "data-research"], status: "completed", period: "2025", role: ["调研任务设计", "实地走访", "访谈与资料整理", "报告撰写"], summary: "围绕乡村产业、农业生产、文旅融合、基层治理和公共服务开展走访、访谈、问卷与报告写作。", background: "调研关注乡村产业如何与农业品牌、研学和文旅线路形成联系，走访范围包括汤泉农场、官庄村、王官村与倪官村等地。", responsibilities: ["设计调研任务、访谈重点与资料记录方式。", "开展实地走访，整理访谈、问卷与观察材料。", "撰写调研报告并组织对策建议。"], actions: ["围绕产业、农业生产、公共服务和文旅线路开展资料收集。", "规划访谈、问卷、观察维度和报告结构。", "对照访谈记录与公开材料，审慎归纳结论。"], results: ["完成走访、访谈、问卷与资料整理。", "形成乡村调研报告和对策建议。", "将可公开的过程信息整理为展示材料。"], skills: ["实地调研", "访谈", "报告写作", "成果表达"], gallery: [], attachments: [{ title: "乡村调研报告", kind: "report", description: "调研报告与对策建议，原始访谈资料不公开。" }], links: [], featured: true, resumeVisible: true, order: 4 },
+    { slug: "china-footwear-dtc", title: "中国鞋业 DTC 出海之路", category: ["cross-border", "data-research"], status: "completed", period: "2023.05 — 2024.05", role: ["第一主持人", "项目统筹", "研究框架设计", "汇报材料整合"], summary: "围绕中国鞋业品牌通过 DTC 模式拓展海外市场，梳理市场进入、线上营销、渠道选择与用户转化的问题。", background: "项目从国际贸易与跨境电商学习出发，研究鞋业品牌直接面向海外消费者时的市场、品牌表达与转化链路。", responsibilities: ["制定研究任务与阶段节点，协调团队推进。", "搭建市场、渠道与用户问题的研究框架。", "整合资料、方案与汇报材料。"], actions: ["检索行业与品牌公开资料。", "按市场、渠道、内容与转化环节组织研究框架。", "分配资料任务并推动阶段讨论。"], results: ["形成项目研究框架。", "完成阶段性调研与项目汇报材料。", "建立对跨境电商业务链路的基础理解。"], skills: ["DTC", "市场调研", "跨境电商", "项目统筹"], gallery: [], attachments: [{ title: "项目汇报材料", kind: "presentation", description: "研究框架与汇报内容摘要。" }], links: [], featured: false, resumeVisible: true, order: 5 },
+  ],
+};

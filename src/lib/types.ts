@@ -7,64 +7,71 @@ export type ProjectCategory =
   | "data-research"
   | "rural-research";
 
-type ProjectLink = {
+export type ProjectLink = {
   label: string;
   href: string;
   type: "website" | "github" | "document" | "demo";
 };
 
-type ProjectProcessStep = {
+export type ProjectAttachment = {
   title: string;
-  text: string;
+  kind: "report" | "presentation" | "system" | "research" | "other";
+  description?: string;
+  href?: string;
 };
 
-type ProjectContent = {
-  title: string;
-  subtitle: string;
-  summary: string;
-  background: string;
-  problem: string[];
-  responsibilities: string[];
-  process: ProjectProcessStep[];
-  outcomes: string[];
-  reflection: string;
-  evidenceNote: string;
-};
+export type ProjectGalleryItem = { url?: string; alt: string; caption?: string };
 
 export type Project = {
   slug: string;
-  content: ProjectContent;
+  title: string;
   category: ProjectCategory[];
-  year: string;
-  period: string;
-  level?: string;
   status: ProjectStatus;
+  period: string;
   role: string[];
-  tags: string[];
+  summary: string;
+  background: string;
+  responsibilities: string[];
+  actions: string[];
+  results: string[];
+  skills: string[];
+  gallery: ProjectGalleryItem[];
+  attachments: ProjectAttachment[];
+  links: ProjectLink[];
   featured: boolean;
-  links?: ProjectLink[];
+  resumeVisible: boolean;
+  order: number;
 };
 
-type WorkStatus = "public" | "organizing" | "summary-only" | "private";
-type WorkType =
-  | "product-system"
-  | "research-report"
-  | "data-analysis"
-  | "prototype"
-  | "presentation"
-  | "visual-design"
-  | "video";
+export type Profile = {
+  name: string;
+  latinName: string;
+  monogram: string;
+  professionalTitle: string;
+  valueProposition: string;
+  intro: string;
+  location: string;
+  availability: string;
+  email: string;
+  github: string;
+  site: string;
+  resumePath: string;
+  about: string[];
+  highlights: string[];
+};
 
-export type Work = {
-  id: string;
-  title: string;
-  type: WorkType;
-  year: string;
-  description: string;
-  relatedProjectSlug?: string;
-  status: WorkStatus;
-  href?: string;
-  downloadHref?: string;
-  isPublic: boolean;
-  featured?: boolean;
+export type Education = { id: string; school: string; degree: string; major: string; period: string; status: "graduated" | "studying"; rank?: string; summary?: string; order: number };
+export type Experience = { id: string; organization: string; role: string; period: string; summary?: string; bullets: string[]; order: number };
+export type Award = { id: string; title: string; issuer?: string; date?: string; description?: string; featured: boolean; order: number };
+export type Skill = { id: string; name: string; category: string; description?: string; order: number };
+export type Certificate = { id: string; name: string; issuer?: string; date?: string; order: number };
+
+export type PortfolioData = {
+  profile: Profile;
+  projects: Project[];
+  education: Education[];
+  experiences: Experience[];
+  awards: Award[];
+  skills: Skill[];
+  certificates: Certificate[];
 };

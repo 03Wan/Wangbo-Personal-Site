@@ -9,7 +9,7 @@ const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"]
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.myboverse.com"),
   title: { default: "王波 | 个人官网", template: "%s | 王波" },
-  description: "王波的个人官网：关于我、项目作品、个人简历与联系方式。",
+  description: "王波的个人品牌与求职作品集：跨境业务、市场研究、数据分析与 AI 工具应用。",
   authors: [{ name: "王波", url: "https://www.myboverse.com" }],
   creator: "王波",
   openGraph: {
