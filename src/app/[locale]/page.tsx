@@ -18,13 +18,13 @@ const abilities = [
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const { profile, projects, education, experiences, awards, skills } = await getSiteData();
+  const { profile, projects, experiences, awards, skills } = await getSiteData();
   const featuredProjects = projects.filter((project) => project.featured).slice(0, 3);
   const featuredAwards = awards.filter((award) => award.featured).slice(0, 3);
   return <>
     <section className="hero section-shell">
       <div className="hero-copy"><div className="status-row"><span className="eyebrow">{profile.professionalTitle}</span><span className="status"><i />{profile.availability}</span></div><h1><span className="hero-title-break">{profile.valueProposition}</span></h1><span className="title-rule" aria-hidden="true" /><p className="hero-lead">{profile.intro}</p><div className="action-row"><Link className="button button-primary" href={`/${locale}/projects`}>查看项目案例<span>→</span></Link><a className="button button-ghost" href={profile.resumePath} download>下载公开简历<span>↓</span></a><Link className="button button-link" href={`/${locale}/contact`}>联系我<span>→</span></Link></div></div>
-      <aside className="identity-panel"><div className="identity-copy"><h2>{profile.latinName}</h2><span>{profile.location}</span><i aria-hidden="true" /><dl>{profile.highlights.map((item, index) => <div key={item}><dt>{String(index + 1).padStart(2, "0")}</dt><dd>{item}</dd></div>)}</dl></div><div className="identity-index"><div><span className="eyebrow">CORE PROOF / 核心证明</span><strong>{profile.monogram}</strong></div><ol>{education.slice(0, 1).map((item) => <li key={item.id}><span>EDU</span>{item.school} · {item.major} · {item.status === "graduated" ? "已毕业" : "在读"}</li>)}</ol></div></aside>
+      <aside className="identity-panel"><div className="identity-copy"><h2>{profile.latinName}</h2><span>{profile.location}</span><i aria-hidden="true" /><dl>{profile.highlights.map((item, index) => <div key={item}><dt>{String(index + 1).padStart(2, "0")}</dt><dd>{item}</dd></div>)}</dl></div></aside>
     </section>
     <section className="section-shell proof-section"><div className="section-heading"><div><span className="eyebrow">CORE STRENGTHS / 核心能力</span><h2>能把研究、分析和工具应用，落到具体项目中。</h2></div></div><div className="ability-grid">{abilities.map(([index, title, description]) => <article key={title}><span>{index}</span><h3>{title}</h3><p>{description}</p><div className="tag-list">{skills.filter((skill) => skill.category === title).map((skill) => <em key={skill.id}>{skill.name}</em>)}</div></article>)}</div></section>
     <section className="section-shell selected-projects"><div className="section-heading split-heading"><div><span className="eyebrow">SELECTED PROJECTS / 精选项目</span><h2>用角色、行动和可复核的产出说明实践。</h2></div><Link className="text-link" href={`/${locale}/projects`}>查看全部项目<span>→</span></Link></div><div className="project-stack">{featuredProjects.map((project, index) => <ProjectCard key={project.slug} project={project} locale={locale} index={index} compact />)}</div></section>
