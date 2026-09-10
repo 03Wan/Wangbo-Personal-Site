@@ -7,7 +7,7 @@ export const portfolioDefaults: PortfolioData = {
     valueProposition: "以市场研究、数据洞察与 AI 工作流，把业务问题转化为可执行的项目方案。",
     intro: "2026 届国际经济与贸易本科毕业生，关注跨境电商、数字营销与 AIGC 的实际应用，积累了市场分析、内容策划、数据处理及项目执行等方面的实践经验。",
     location: "南京", availability: "开放交流与合作",
-    email: "wangbo030127@gmail.com", github: "https://github.com/03Wan", site: "https://www.myboverse.com", resumePath: "/resume-wangbo-public.pdf",
+    email: "wangbo030127@gmail.com", github: "https://github.com/03Wan", site: "https://www.myboverse.com", resumePath: "/resume-wangbo-public.pdf", heroIllustrationUrl: "/hero-character-study.jpg",
     highlights: ["国际经济与贸易本科 · 已毕业", "专业排名前 15%", "国家级大学生创新创业训练项目第一主持人", "校优秀毕业生 · 校优秀毕业论文"],
     about: [
       "我毕业于三江学院国际经济与贸易专业，系统学习国际贸易、统计学、计量经济学与国际结算等课程，专业排名前 15%。",

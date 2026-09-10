@@ -56,9 +56,12 @@ main { min-height: 70vh; }
 .button-ghost { background: var(--surface); }
 .identity-panel { padding: 34px 0 0 32px; border-left: 1px solid var(--line); }
 .identity-copy { padding: 0; }
+.identity-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 18px; }
 .identity-copy h2 { margin: 0; font-size: 1.45rem; line-height: 1.1; }
-.identity-copy > span { display: block; margin-top: 7px; font-family: var(--font-geist-mono), monospace; font-size: .78rem; letter-spacing: .12em; }
-.identity-copy > i { display: block; width: 26px; height: 2px; margin: 25px 0 19px; background: var(--accent); }
+.identity-heading span { display: block; margin-top: 7px; font-family: var(--font-geist-mono), monospace; font-size: .78rem; letter-spacing: .12em; }
+.identity-heading i { display: block; width: 26px; height: 2px; margin: 25px 0 19px; background: var(--accent); }
+.hero-character-frame { position: relative; width: clamp(112px, 9vw, 156px); height: clamp(168px, 13vw, 212px); flex: 0 0 auto; margin: -18px 4px -16px 0; }
+.hero-character { object-fit: contain; object-position: center top; }
 .identity-copy dl { margin: 0; display: grid; gap: 12px; }
 .identity-copy dl div { display: grid; grid-template-columns: 24px 1fr; gap: 8px; }
 .identity-copy dt { color: var(--accent); font-family: var(--font-geist-mono), monospace; font-size: .7rem; }
@@ -332,6 +335,7 @@ main { min-height: 70vh; }
   .hero h1 { font-size: 1.86rem; line-height: 1.28; letter-spacing: -.04em; }
   .hero-lead { font-size: .96rem; }
   .identity-panel { padding-top: 26px; }
+  .hero-character-frame { width: 108px; height: 154px; margin-top: -10px; }
   .identity-copy dl div { grid-template-columns: 22px 1fr; }
   .selected-projects, .selected-works, .now-section, .proof-section, .home-summary, .job-cta, .page-shell { padding-block: 54px; }
   .page-intro h1 { font-size: 2.35rem; }

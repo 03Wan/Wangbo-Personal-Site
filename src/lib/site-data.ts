@@ -7,7 +7,7 @@ import type { PortfolioData, Project, ProjectStatus } from "@/lib/types";
 export type SiteData = PortfolioData;
 
 const siteDataQuery = groq`{
-  "profile": *[_type == "profile"][0],
+  "profile": *[_type == "profile"][0] { ..., "heroIllustrationUrl": heroIllustration->image.asset->url },
   "legacySettings": *[_type == "siteSettings" && _id == "siteSettings"][0]{shared, content},
   "education": *[_type == "education"] | order(order asc),
   "experiences": *[_type == "experience"] | order(order asc),
@@ -79,7 +79,14 @@ function legacyData(settings: LegacySettings | null | undefined) {
 export const getSiteData = cache(async (): Promise<SiteData> => {
   const client = getSanityClient();
   if (!client) return portfolioDefaults;
-  const raw = await client.fetch<RawData>(siteDataQuery, {}, { cache: "no-store" });
+  let raw: RawData;
+  try {
+    raw = await client.fetch<RawData>(siteDataQuery, {}, { cache: "no-store" });
+  } catch (error) {
+    console.error("Unable to load Sanity content; using local fallback data.", error);
+    return portfolioDefaults;
+  }
   const legacy = legacyData(raw.legacySettings);
-  return { profile: raw.profile ? { ...legacyProfile(raw.legacySettings), ...raw.profile } : legacyProfile(raw.legacySettings), education: choose(raw.education, legacy.education), experiences: choose(raw.experiences, legacy.experiences), awards: choose(raw.awards, legacy.awards), skills: choose(raw.skills, portfolioDefaults.skills), certificates: choose(raw.certificates, legacy.certificates), projects: choose(raw.projects?.map(normalizeProject).filter((project) => project.slug), portfolioDefaults.projects) };
+  const profile = raw.profile ? { ...legacyProfile(raw.legacySettings), ...raw.profile, heroIllustrationUrl: raw.profile.heroIllustrationUrl || portfolioDefaults.profile.heroIllustrationUrl } : legacyProfile(raw.legacySettings);
+  return { profile, education: choose(raw.education, legacy.education), experiences: choose(raw.experiences, legacy.experiences), awards: choose(raw.awards, legacy.awards), skills: choose(raw.skills, portfolioDefaults.skills), certificates: choose(raw.certificates, legacy.certificates), projects: choose(raw.projects?.map(normalizeProject).filter((project) => project.slug), portfolioDefaults.projects) };
 });

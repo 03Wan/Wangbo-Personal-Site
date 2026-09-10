@@ -56,6 +56,7 @@ export type Profile = {
   github: string;
   site: string;
   resumePath: string;
+  heroIllustrationUrl: string;
   about: string[];
   highlights: string[];
 };
