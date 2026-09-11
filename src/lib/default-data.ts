@@ -2,6 +2,7 @@ import type { PortfolioData } from "./types";
 
 export const portfolioDefaults: PortfolioData = {
   siteAppearance: {
+    themePreset: "professionalBlue",
     accentColor: "#0d55b8",
     backgroundColor: "#f4f5f7",
     textColor: "#111317",

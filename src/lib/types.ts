@@ -87,6 +87,7 @@ export type DomainNotice = {
 };
 
 export type SiteAppearance = {
+  themePreset: "professionalBlue" | "forest" | "graphite" | "custom";
   accentColor: string;
   backgroundColor: string;
   textColor: string;

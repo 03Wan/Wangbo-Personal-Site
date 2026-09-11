@@ -9,7 +9,7 @@ export type SiteData = PortfolioData;
 const siteDataQuery = groq`{
   "profile": *[_type == "profile"][0] { ..., "resumePath": resumeFile.asset->url, "heroIllustrationUrl": heroIllustration->image.asset->url },
   "displaySettings": *[_type == "displaySettings"][0]{showHome, showProjects, showResume, showAbout, showContact, showFooter, showGithub, showResumeDownload, zhixuanNotice{enabled, title, description, url}},
-  "siteAppearance": *[_type == "siteAppearance"][0]{accentColor, backgroundColor, textColor, fontStyle, contentWidth, spacing, headingScale, bodyScale},
+  "siteAppearance": *[_type == "siteAppearance"][0]{themePreset, accentColor, backgroundColor, textColor, fontStyle, contentWidth, spacing, headingScale, bodyScale},
   "education": *[_type == "education"] | order(order asc),
   "experiences": *[_type == "experience"] | order(order asc),
   "awards": *[_type == "award"] | order(order asc),
@@ -63,12 +63,20 @@ function displaySettings(raw: RawDisplaySettings | null | undefined): DisplaySet
 }
 function color(value: string | undefined, fallback: string): string { return /^#[0-9a-f]{6}$/i.test(value || "") ? value! : fallback; }
 function choice<T extends string>(value: string | undefined, options: readonly T[], fallback: T): T { return options.includes(value as T) ? value as T : fallback; }
+const themeColors = {
+  professionalBlue: { accentColor: "#0d55b8", backgroundColor: "#f4f5f7", textColor: "#111317" },
+  forest: { accentColor: "#1f6b4f", backgroundColor: "#f4f7f4", textColor: "#16251f" },
+  graphite: { accentColor: "#3f4650", backgroundColor: "#f5f5f4", textColor: "#171717" },
+} as const;
 function siteAppearance(raw: Partial<SiteAppearance> | null | undefined): SiteAppearance {
   const defaults = portfolioDefaults.siteAppearance;
+  const themePreset = choice(raw?.themePreset, ["professionalBlue", "forest", "graphite", "custom"], defaults.themePreset);
+  const palette = themePreset === "custom" ? defaults : themeColors[themePreset];
   return {
-    accentColor: color(raw?.accentColor, defaults.accentColor),
-    backgroundColor: color(raw?.backgroundColor, defaults.backgroundColor),
-    textColor: color(raw?.textColor, defaults.textColor),
+    themePreset,
+    accentColor: themePreset === "custom" ? color(raw?.accentColor, defaults.accentColor) : palette.accentColor,
+    backgroundColor: themePreset === "custom" ? color(raw?.backgroundColor, defaults.backgroundColor) : palette.backgroundColor,
+    textColor: themePreset === "custom" ? color(raw?.textColor, defaults.textColor) : palette.textColor,
     fontStyle: choice(raw?.fontStyle, ["sans", "serif"], defaults.fontStyle),
     contentWidth: choice(raw?.contentWidth, ["standard", "wide"], defaults.contentWidth),
     spacing: choice(raw?.spacing, ["compact", "comfortable"], defaults.spacing),
