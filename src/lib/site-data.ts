@@ -2,13 +2,14 @@ import { cache } from "react";
 import { groq } from "next-sanity";
 import { portfolioDefaults } from "@/lib/default-data";
 import { getSanityClient } from "@/sanity/lib/client";
-import type { DisplaySettings, DomainNotice, PortfolioData, Project, ProjectStatus } from "@/lib/types";
+import type { DisplaySettings, DomainNotice, PortfolioData, Project, ProjectStatus, SiteAppearance } from "@/lib/types";
 
 export type SiteData = PortfolioData;
 
 const siteDataQuery = groq`{
   "profile": *[_type == "profile"][0] { ..., "resumePath": resumeFile.asset->url, "heroIllustrationUrl": heroIllustration->image.asset->url },
   "displaySettings": *[_type == "displaySettings"][0]{showHome, showProjects, showResume, showAbout, showContact, showFooter, showGithub, showResumeDownload, zhixuanNotice{enabled, title, description, url}},
+  "siteAppearance": *[_type == "siteAppearance"][0]{accentColor, backgroundColor, textColor, fontStyle, contentWidth, spacing, headingScale, bodyScale},
   "education": *[_type == "education"] | order(order asc),
   "experiences": *[_type == "experience"] | order(order asc),
   "awards": *[_type == "award"] | order(order asc),
@@ -25,7 +26,7 @@ const siteDataQuery = groq`{
 
 type RawProject = Partial<Project>;
 type RawDisplaySettings = Omit<Partial<DisplaySettings>, "zhixuanNotice"> & { zhixuanNotice?: Partial<DomainNotice> };
-type RawData = Partial<PortfolioData> & { projects?: RawProject[]; displaySettings?: RawDisplaySettings | null };
+type RawData = Partial<PortfolioData> & { projects?: RawProject[]; displaySettings?: RawDisplaySettings | null; siteAppearance?: Partial<SiteAppearance> | null };
 const projectStatuses: ProjectStatus[] = ["completed", "ongoing", "archived"];
 
 function list(value: unknown): string[] { return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string" && item.trim().length > 0) : []; }
@@ -60,6 +61,21 @@ function displaySettings(raw: RawDisplaySettings | null | undefined): DisplaySet
     },
   };
 }
+function color(value: string | undefined, fallback: string): string { return /^#[0-9a-f]{6}$/i.test(value || "") ? value! : fallback; }
+function choice<T extends string>(value: string | undefined, options: readonly T[], fallback: T): T { return options.includes(value as T) ? value as T : fallback; }
+function siteAppearance(raw: Partial<SiteAppearance> | null | undefined): SiteAppearance {
+  const defaults = portfolioDefaults.siteAppearance;
+  return {
+    accentColor: color(raw?.accentColor, defaults.accentColor),
+    backgroundColor: color(raw?.backgroundColor, defaults.backgroundColor),
+    textColor: color(raw?.textColor, defaults.textColor),
+    fontStyle: choice(raw?.fontStyle, ["sans", "serif"], defaults.fontStyle),
+    contentWidth: choice(raw?.contentWidth, ["standard", "wide"], defaults.contentWidth),
+    spacing: choice(raw?.spacing, ["compact", "comfortable"], defaults.spacing),
+    headingScale: choice(raw?.headingScale, ["standard", "large"], defaults.headingScale),
+    bodyScale: choice(raw?.bodyScale, ["standard", "large"], defaults.bodyScale),
+  };
+}
 export const getSiteData = cache(async (): Promise<SiteData> => {
   const client = getSanityClient();
   if (!client) return portfolioDefaults;
@@ -71,5 +87,5 @@ export const getSiteData = cache(async (): Promise<SiteData> => {
     return portfolioDefaults;
   }
   const profile = raw.profile ? { ...portfolioDefaults.profile, ...raw.profile, resumePath: raw.profile.resumePath || undefined, heroIllustrationUrl: raw.profile.heroIllustrationUrl || portfolioDefaults.profile.heroIllustrationUrl } : portfolioDefaults.profile;
-  return { profile, displaySettings: displaySettings(raw.displaySettings), education: choose(raw.education, portfolioDefaults.education), experiences: choose(raw.experiences, portfolioDefaults.experiences), awards: choose(raw.awards, portfolioDefaults.awards), skills: choose(raw.skills, portfolioDefaults.skills), certificates: choose(raw.certificates, portfolioDefaults.certificates), projects: choose(raw.projects?.map(normalizeProject).filter((project) => project.slug), portfolioDefaults.projects) };
+  return { profile, displaySettings: displaySettings(raw.displaySettings), siteAppearance: siteAppearance(raw.siteAppearance), education: choose(raw.education, portfolioDefaults.education), experiences: choose(raw.experiences, portfolioDefaults.experiences), awards: choose(raw.awards, portfolioDefaults.awards), skills: choose(raw.skills, portfolioDefaults.skills), certificates: choose(raw.certificates, portfolioDefaults.certificates), projects: choose(raw.projects?.map(normalizeProject).filter((project) => project.slug), portfolioDefaults.projects) };
 });

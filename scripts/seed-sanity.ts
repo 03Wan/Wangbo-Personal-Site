@@ -25,6 +25,7 @@ function projectDocument(project: (typeof portfolioDefaults.projects)[number]): 
 const documents: Document[] = [
   document("profile", "profile-wangbo", portfolioDefaults.profile),
   document("displaySettings", "displaySettings", portfolioDefaults.displaySettings),
+  document("siteAppearance", "siteAppearance", portfolioDefaults.siteAppearance),
   ...portfolioDefaults.education.map((item) => document("education", `education-${item.id}`, withoutFrontendId(item))),
   ...portfolioDefaults.experiences.map((item) => document("experience", `experience-${item.id}`, withoutFrontendId(item))),
   ...portfolioDefaults.awards.map((item) => document("award", `award-${item.id}`, withoutFrontendId(item))),
@@ -40,7 +41,7 @@ async function main() {
   if (!client) throw new Error("请先设置 NEXT_PUBLIC_SANITY_PROJECT_ID 和 SANITY_API_WRITE_TOKEN。");
   let transaction = client.transaction();
   for (const item of documents) {
-    if (item._type === "profile" || item._type === "displaySettings") {
+    if (item._type === "profile" || item._type === "displaySettings" || item._type === "siteAppearance") {
       transaction = transaction.createIfNotExists(item);
       continue;
     }

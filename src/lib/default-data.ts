@@ -1,6 +1,16 @@
 import type { PortfolioData } from "./types";
 
 export const portfolioDefaults: PortfolioData = {
+  siteAppearance: {
+    accentColor: "#0d55b8",
+    backgroundColor: "#f4f5f7",
+    textColor: "#111317",
+    fontStyle: "sans",
+    contentWidth: "standard",
+    spacing: "comfortable",
+    headingScale: "standard",
+    bodyScale: "standard",
+  },
   displaySettings: {
     showHome: true,
     showProjects: true,

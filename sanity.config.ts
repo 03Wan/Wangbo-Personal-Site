@@ -21,7 +21,11 @@ export default defineConfig({
               .title('网站展示设置')
               .id('displaySettings')
               .child(S.document().schemaType('displaySettings').documentId('displaySettings')),
-            ...S.documentTypeListItems().filter((item) => item.getId() !== 'displaySettings'),
+            S.listItem()
+              .title('网站样式设置')
+              .id('siteAppearance')
+              .child(S.document().schemaType('siteAppearance').documentId('siteAppearance')),
+            ...S.documentTypeListItems().filter((item) => !['displaySettings', 'siteAppearance'].includes(item.getId() || '')),
           ]),
     }),
   ],

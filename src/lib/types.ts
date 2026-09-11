@@ -86,9 +86,21 @@ export type DomainNotice = {
   url: string;
 };
 
+export type SiteAppearance = {
+  accentColor: string;
+  backgroundColor: string;
+  textColor: string;
+  fontStyle: "sans" | "serif";
+  contentWidth: "standard" | "wide";
+  spacing: "compact" | "comfortable";
+  headingScale: "standard" | "large";
+  bodyScale: "standard" | "large";
+};
+
 export type PortfolioData = {
   profile: Profile;
   displaySettings: DisplaySettings;
+  siteAppearance: SiteAppearance;
   projects: Project[];
   education: Education[];
   experiences: Experience[];
