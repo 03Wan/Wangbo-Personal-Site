@@ -76,6 +76,14 @@ export type DisplaySettings = {
   showFooter: boolean;
   showGithub: boolean;
   showResumeDownload: boolean;
+  zhixuanNotice: DomainNotice;
+};
+
+export type DomainNotice = {
+  enabled: boolean;
+  title: string;
+  description: string;
+  url: string;
 };
 
 export type PortfolioData = {

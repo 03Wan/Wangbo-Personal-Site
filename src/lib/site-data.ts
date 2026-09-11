@@ -2,13 +2,13 @@ import { cache } from "react";
 import { groq } from "next-sanity";
 import { portfolioDefaults } from "@/lib/default-data";
 import { getSanityClient } from "@/sanity/lib/client";
-import type { DisplaySettings, PortfolioData, Project, ProjectStatus } from "@/lib/types";
+import type { DisplaySettings, DomainNotice, PortfolioData, Project, ProjectStatus } from "@/lib/types";
 
 export type SiteData = PortfolioData;
 
 const siteDataQuery = groq`{
   "profile": *[_type == "profile"][0] { ..., "resumePath": resumeFile.asset->url, "heroIllustrationUrl": heroIllustration->image.asset->url },
-  "displaySettings": *[_type == "displaySettings"][0]{showHome, showProjects, showResume, showAbout, showContact, showFooter, showGithub, showResumeDownload},
+  "displaySettings": *[_type == "displaySettings"][0]{showHome, showProjects, showResume, showAbout, showContact, showFooter, showGithub, showResumeDownload, zhixuanNotice{enabled, title, description, url}},
   "education": *[_type == "education"] | order(order asc),
   "experiences": *[_type == "experience"] | order(order asc),
   "awards": *[_type == "award"] | order(order asc),
@@ -24,7 +24,8 @@ const siteDataQuery = groq`{
 }`;
 
 type RawProject = Partial<Project>;
-type RawData = Partial<PortfolioData> & { projects?: RawProject[]; displaySettings?: Partial<DisplaySettings> | null };
+type RawDisplaySettings = Omit<Partial<DisplaySettings>, "zhixuanNotice"> & { zhixuanNotice?: Partial<DomainNotice> };
+type RawData = Partial<PortfolioData> & { projects?: RawProject[]; displaySettings?: RawDisplaySettings | null };
 const projectStatuses: ProjectStatus[] = ["completed", "ongoing", "archived"];
 
 function list(value: unknown): string[] { return Array.isArray(value) ? value.filter((item): item is string => typeof item === "string" && item.trim().length > 0) : []; }
@@ -40,7 +41,7 @@ function normalizeProject(raw: RawProject, index: number): Project {
   };
 }
 function choose<T>(items: T[] | undefined, fallback: T[]): T[] { return Array.isArray(items) && items.length > 0 ? items : fallback; }
-function displaySettings(raw: Partial<DisplaySettings> | null | undefined): DisplaySettings {
+function displaySettings(raw: RawDisplaySettings | null | undefined): DisplaySettings {
   const defaults = portfolioDefaults.displaySettings;
   return {
     showHome: raw?.showHome ?? defaults.showHome,
@@ -51,6 +52,12 @@ function displaySettings(raw: Partial<DisplaySettings> | null | undefined): Disp
     showFooter: raw?.showFooter ?? defaults.showFooter,
     showGithub: raw?.showGithub ?? defaults.showGithub,
     showResumeDownload: raw?.showResumeDownload ?? defaults.showResumeDownload,
+    zhixuanNotice: {
+      enabled: raw?.zhixuanNotice?.enabled ?? defaults.zhixuanNotice.enabled,
+      title: raw?.zhixuanNotice?.title || defaults.zhixuanNotice.title,
+      description: raw?.zhixuanNotice?.description || defaults.zhixuanNotice.description,
+      url: raw?.zhixuanNotice?.url || defaults.zhixuanNotice.url,
+    },
   };
 }
 export const getSiteData = cache(async (): Promise<SiteData> => {

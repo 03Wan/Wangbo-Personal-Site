@@ -10,6 +10,12 @@ export const portfolioDefaults: PortfolioData = {
     showFooter: true,
     showGithub: true,
     showResumeDownload: true,
+    zhixuanNotice: {
+      enabled: true,
+      title: "智选优发已启用新域名",
+      description: "智选优发现已迁移至新的官方网站。后续产品介绍与更新将在新站发布，建议使用并收藏新地址。",
+      url: "https://zhixuanyoufa.myboverse.com/",
+    },
   },
   profile: {
     name: "王波", latinName: "WANG BO", monogram: "WB",
