@@ -50,10 +50,10 @@ npm run build
 
 1. 在 [Sanity Manage](https://www.sanity.io/manage) 创建项目和 `production` 数据集，并把自己的账号加入项目成员。
 2. 复制 `.env.example` 为 `.env.local`，填入 `NEXT_PUBLIC_SANITY_PROJECT_ID` 和 `NEXT_PUBLIC_SANITY_DATASET`。
-3. 在 Sanity 项目中创建一个具有写入权限的 API token，只在本地临时填入 `SANITY_API_WRITE_TOKEN`，运行 `npm run seed:sanity`，写入新的结构化内容。已有 `siteSettings`、`work` 和旧项目详情字段不会被删除。
+3. 在 Sanity 项目中创建一个具有写入权限的 API token，只在本地临时填入 `SANITY_API_WRITE_TOKEN`，运行 `npm run seed:sanity`，写入结构化内容。
 4. 启动网站后打开 `http://localhost:3000/studio`；生产环境打开 `https://www.myboverse.com/studio`。登录 Sanity 账号即可编辑和发布。
 5. 在 Vercel 项目中添加前两个 `NEXT_PUBLIC_*` 环境变量并重新部署一次。`SANITY_API_WRITE_TOKEN` 不需要配置到 Vercel。
 
-未配置 Sanity 时，网站使用仓库中的结构化默认数据。配置 Sanity 后，网站优先读取已发布的结构化资料；旧版项目字段仍会被兼容读取，便于分批迁移。
+未配置 Sanity 时，网站使用仓库中的结构化默认数据。配置 Sanity 后，网站优先读取已发布的结构化资料。
 
 项目 slug 必须保持语言无关；只有真实存在的外部地址才加入 `links` 或附件链接。没有公开文件时保留附件说明即可，不要填写空链接。Sanity Studio 中的 `order` 字段控制资料排序。

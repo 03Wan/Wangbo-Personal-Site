@@ -4,17 +4,17 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import type { Locale } from "@/lib/content";
-import type { Profile } from "@/lib/types";
+import type { DisplaySettings, Profile } from "@/lib/types";
 
 const routes = [
-  { label: "首页", path: "" },
-  { label: "项目案例", path: "/projects" },
-  { label: "简历", path: "/resume" },
-  { label: "关于", path: "/about" },
-  { label: "联系", path: "/contact" },
+  { label: "首页", path: "", setting: "showHome" },
+  { label: "项目案例", path: "/projects", setting: "showProjects" },
+  { label: "简历", path: "/resume", setting: "showResume" },
+  { label: "关于", path: "/about", setting: "showAbout" },
+  { label: "联系", path: "/contact", setting: "showContact" },
 ] as const;
 
-export function Header({ locale, profile }: { locale: Locale; profile: Profile }) {
+export function Header({ locale, profile, displaySettings }: { locale: Locale; profile: Profile; displaySettings: DisplaySettings }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -30,7 +30,7 @@ export function Header({ locale, profile }: { locale: Locale; profile: Profile }
           <i aria-hidden="true" />
         </button>
         <nav id="primary-nav" className={`primary-nav ${open ? "is-open" : ""}`} aria-label="主导航">
-          {routes.map((route) => {
+          {routes.filter((route) => displaySettings[route.setting]).map((route) => {
             const href = `/${locale}${route.path}`;
             const active = route.path === "" ? pathname === href : pathname.startsWith(href);
             return <Link key={route.path} href={href} className={active ? "active" : undefined} onClick={() => setOpen(false)}>{route.label}</Link>;

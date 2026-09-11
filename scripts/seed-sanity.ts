@@ -24,6 +24,7 @@ function projectDocument(project: (typeof portfolioDefaults.projects)[number]): 
 }
 const documents: Document[] = [
   document("profile", "profile-wangbo", portfolioDefaults.profile),
+  document("displaySettings", "displaySettings", portfolioDefaults.displaySettings),
   ...portfolioDefaults.education.map((item) => document("education", `education-${item.id}`, withoutFrontendId(item))),
   ...portfolioDefaults.experiences.map((item) => document("experience", `experience-${item.id}`, withoutFrontendId(item))),
   ...portfolioDefaults.awards.map((item) => document("award", `award-${item.id}`, withoutFrontendId(item))),
@@ -33,25 +34,16 @@ const documents: Document[] = [
 ];
 
 function validateManifest() { assert(portfolioDefaults.projects.length > 0, "项目清单不能为空。"); assert(portfolioDefaults.education.length > 0, "教育经历不能为空。"); assert.equal(new Set(documents.map((item) => item._id)).size, documents.length, "Sanity 文档 ID 存在重复。"); }
-async function repairLegacyProjectKeys() {
-  if (!client) return;
-  const projects = await client.fetch<Array<{ _id: string; content?: { process?: Array<Record<string, unknown>> } }>>("*[_type == 'project']{_id, content}");
-  const repairs = projects.filter((project) => project.content?.process?.some((item) => typeof item._key !== "string"));
-  if (repairs.length === 0) return;
-  let transaction = client.transaction();
-  for (const project of repairs) {
-    const process = project.content?.process?.map((item, index) => ({ ...item, _key: typeof item._key === "string" ? item._key : `legacy-process-${index + 1}` }));
-    transaction = transaction.patch(project._id, { set: { "content.process": process } });
-  }
-  await transaction.commit({ visibility: "sync" });
-}
 async function main() {
   validateManifest();
   if (process.argv.includes("--check-only")) { console.log(`结构化内容校验通过：${documents.length} 个文档。`); return; }
   if (!client) throw new Error("请先设置 NEXT_PUBLIC_SANITY_PROJECT_ID 和 SANITY_API_WRITE_TOKEN。");
   let transaction = client.transaction();
   for (const item of documents) {
-    // Existing project documents are patched, never replaced, so legacy content remains recoverable.
+    if (item._type === "profile" || item._type === "displaySettings") {
+      transaction = transaction.createIfNotExists(item);
+      continue;
+    }
     if (item._type === "project") {
       const fields = Object.fromEntries(Object.entries(item).filter(([key]) => key !== "_id" && key !== "_type"));
       transaction = transaction.createIfNotExists(item).patch(item._id, { set: fields });
@@ -59,9 +51,8 @@ async function main() {
     else transaction = transaction.createOrReplace(item);
   }
   await transaction.commit({ visibility: "sync" });
-  await repairLegacyProjectKeys();
   const ids = await client.fetch<string[]>("*[_id in $ids]._id", { ids: documents.map((item) => item._id) });
   assert.equal(ids.length, documents.length, "部分结构化文档未成功写入 Sanity。");
-  console.log(`已写入并校验 ${documents.length} 个结构化文档（${dataset}）。旧 siteSettings、work 与 project.content 均未删除。`);
+  console.log(`已写入并校验 ${documents.length} 个结构化文档（${dataset}）。`);
 }
 main().catch((error: unknown) => { console.error(error instanceof Error ? error.message : error); process.exitCode = 1; });

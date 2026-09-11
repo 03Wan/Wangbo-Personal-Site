@@ -55,7 +55,7 @@ export type Profile = {
   email: string;
   github: string;
   site: string;
-  resumePath: string;
+  resumePath?: string;
   heroIllustrationUrl: string;
   about: string[];
   highlights: string[];
@@ -67,8 +67,20 @@ export type Award = { id: string; title: string; issuer?: string; date?: string;
 export type Skill = { id: string; name: string; category: string; description?: string; order: number };
 export type Certificate = { id: string; name: string; issuer?: string; date?: string; order: number };
 
+export type DisplaySettings = {
+  showHome: boolean;
+  showProjects: boolean;
+  showResume: boolean;
+  showAbout: boolean;
+  showContact: boolean;
+  showFooter: boolean;
+  showGithub: boolean;
+  showResumeDownload: boolean;
+};
+
 export type PortfolioData = {
   profile: Profile;
+  displaySettings: DisplaySettings;
   projects: Project[];
   education: Education[];
   experiences: Experience[];
