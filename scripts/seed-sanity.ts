@@ -30,6 +30,7 @@ const documents: Document[] = [
   ...portfolioDefaults.experiences.map((item) => document("experience", `experience-${item.id}`, withoutFrontendId(item))),
   ...portfolioDefaults.awards.map((item) => document("award", `award-${item.id}`, withoutFrontendId(item))),
   ...portfolioDefaults.skills.map((item) => document("skill", `skill-${item.id}`, withoutFrontendId(item))),
+  ...portfolioDefaults.coreStrengths.map((item) => document("coreStrength", `coreStrength-${item.id}`, withoutFrontendId(item))),
   ...portfolioDefaults.certificates.map((item) => document("certificate", `certificate-${item.id}`, withoutFrontendId(item))),
   ...portfolioDefaults.projects.map(projectDocument),
 ];

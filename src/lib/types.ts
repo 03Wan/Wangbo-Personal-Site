@@ -65,7 +65,9 @@ export type Education = { id: string; school: string; degree: string; major: str
 export type Experience = { id: string; organization: string; role: string; period: string; summary?: string; bullets: string[]; order: number };
 export type Award = { id: string; title: string; issuer?: string; date?: string; description?: string; featured: boolean; order: number };
 export type Skill = { id: string; name: string; category: string; description?: string; order: number };
+export type CoreStrength = { id: string; title: string; description: string; skillCategory: string; order: number };
 export type Certificate = { id: string; name: string; issuer?: string; date?: string; order: number };
+export type BlogPost = { id: string; slug: string; title: string; excerpt: string; body?: string; sourceType: "original" | "external"; sourceUrl?: string; sourceAuthor?: string; sourcePlatform?: string; order: number };
 
 export type DisplaySettings = {
   showHome: boolean;
@@ -76,6 +78,8 @@ export type DisplaySettings = {
   showFooter: boolean;
   showGithub: boolean;
   showResumeDownload: boolean;
+  showBlog: boolean;
+  contactTopics: string[];
   zhixuanNotice: DomainNotice;
 };
 
@@ -96,6 +100,15 @@ export type SiteAppearance = {
   spacing: "compact" | "comfortable";
   headingScale: "standard" | "large";
   bodyScale: "standard" | "large";
+  navStyle: "solid" | "transparent";
+  navGlass: boolean;
+  navSticky: boolean;
+  navHeight: "compact" | "standard" | "tall";
+  cornerStyle: "sharp" | "soft" | "round";
+  shadowStyle: "none" | "subtle" | "elevated";
+  heroLayout: "textFirst" | "photoFirst";
+  heroBackground: "none" | "gradient";
+  animationIntensity: "none" | "subtle" | "standard";
 };
 
 export type PortfolioData = {
@@ -107,5 +120,7 @@ export type PortfolioData = {
   experiences: Experience[];
   awards: Award[];
   skills: Skill[];
+  coreStrengths: CoreStrength[];
   certificates: Certificate[];
+  blogPosts: BlogPost[];
 };

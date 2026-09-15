@@ -37,7 +37,9 @@ if (-not (Test-StudioAvailable)) {
   }
 
   Write-Host "Starting the website and data management Studio on port $port..."
-  Start-Process -FilePath 'cmd.exe' -WorkingDirectory $projectRoot -ArgumentList @('/k', "npm run dev -- -p $port")
+  # Node does not use the system proxy by default. Enable the configured proxy
+  # so the site can load published Sanity content on networks that block direct access.
+  Start-Process -FilePath 'cmd.exe' -WorkingDirectory $projectRoot -ArgumentList @('/k', "set NODE_USE_ENV_PROXY=1&& npm run dev -- -p $port")
 
   $deadline = (Get-Date).AddSeconds(45)
   do {

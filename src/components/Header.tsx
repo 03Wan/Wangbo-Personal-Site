@@ -9,6 +9,7 @@ import type { DisplaySettings, Profile } from "@/lib/types";
 const routes = [
   { label: "首页", path: "", setting: "showHome" },
   { label: "项目案例", path: "/projects", setting: "showProjects" },
+  { label: "博客", path: "/blog", setting: "showBlog" },
   { label: "简历", path: "/resume", setting: "showResume" },
   { label: "关于", path: "/about", setting: "showAbout" },
   { label: "联系", path: "/contact", setting: "showContact" },

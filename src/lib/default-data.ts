@@ -11,6 +11,8 @@ export const portfolioDefaults: PortfolioData = {
     spacing: "comfortable",
     headingScale: "standard",
     bodyScale: "standard",
+    navStyle: "solid", navGlass: false, navSticky: false, navHeight: "standard", cornerStyle: "sharp", shadowStyle: "none",
+    heroLayout: "textFirst", heroBackground: "none", animationIntensity: "standard",
   },
   displaySettings: {
     showHome: true,
@@ -21,6 +23,8 @@ export const portfolioDefaults: PortfolioData = {
     showFooter: true,
     showGithub: true,
     showResumeDownload: true,
+    showBlog: true,
+    contactTopics: ["求职与岗位沟通", "跨境业务与市场研究", "数据分析与数字化工作流", "项目交流与合作"],
     zhixuanNotice: {
       enabled: true,
       title: "智选优发已启用新域名",
@@ -65,6 +69,11 @@ export const portfolioDefaults: PortfolioData = {
     { id: "ai-workflow", name: "ChatGPT / Gemini / Codex", category: "AI 工具与数字化工作流", description: "研究、写作与工作流辅助", order: 5 },
     { id: "delivery", name: "项目材料与演示表达", category: "AI 工具与数字化工作流", description: "方案、报告与演示材料整合", order: 6 },
   ],
+  coreStrengths: [
+    { id: "market-research", title: "跨境业务与市场研究", description: "从市场、渠道、内容和用户转化链路理解问题，形成可讨论的研究与方案框架。", skillCategory: "跨境业务与市场研究", order: 1 },
+    { id: "data-insights", title: "数据分析与商业洞察", description: "梳理数据来源、口径、变量和结论边界，为业务判断提供清晰、克制的依据。", skillCategory: "数据分析与商业洞察", order: 2 },
+    { id: "ai-workflow", title: "AI 工具与数字化工作流", description: "将 AI 工具用于资料整理、内容表达与流程设计，同时保留人工复核和可追溯性。", skillCategory: "AI 工具与数字化工作流", order: 3 },
+  ],
   certificates: [
     { id: "cet", name: "CET-4 / CET-6", order: 1 },
     { id: "accounting", name: "全国初级会计证书", order: 2 },
@@ -73,6 +82,7 @@ export const portfolioDefaults: PortfolioData = {
     { id: "computer", name: "全国计算机一级考试证书（优秀）", order: 5 },
     { id: "office", name: "WPS / Microsoft Office", order: 6 },
   ],
+  blogPosts: [],
   projects: [
     { slug: "aigc-cross-border-research", title: "AIGC 应用于跨境电商出海的机制及对策研究", category: ["aigc", "cross-border", "data-research"], status: "completed", period: "2025.05 — 2026.05", role: ["第一主持人", "研究设计", "团队协调", "资料分析"], summary: "围绕 AIGC 在跨境电商内容生成、营销优化和跨文化适配中的应用机制，整理研究框架与阶段性对策。", background: "跨境内容需要兼顾平台规则、语言差异、文化语境和营销效率。项目把 AIGC 放进真实业务流程中审视，而非只讨论工具功能。", responsibilities: ["界定研究问题并搭建应用机制框架。", "组织团队分工、资料分析与阶段讨论。", "整合研究材料并明确结论边界。"], actions: ["梳理 AIGC、跨境营销与文化适配相关文献和案例。", "构建应用场景、影响机制与评价维度框架。", "组织资料编码、案例讨论和阶段性材料写作。"], results: ["形成 AIGC 跨境应用场景框架。", "完成阶段性资料分析与项目展示材料。", "沉淀待后续验证的对策框架，不将阶段判断表述为最终结论。"], skills: ["AIGC", "跨境电商", "市场研究", "项目统筹"], gallery: [], attachments: [{ title: "项目研究与展示材料", kind: "presentation", description: "阶段性研究框架与项目材料，暂不公开下载。" }], links: [], featured: true, resumeVisible: true, order: 1 },
     { slug: "zhixuan-youfa", title: "智选优发", category: ["product", "aigc", "cross-border"], status: "completed", period: "2025 — 2026", role: ["项目策划", "产品结构设计", "功能流程梳理", "展示材料统筹"], summary: "面向跨境商品发布前环节，梳理素材检测、风险识别、优化建议和人工复核的决策辅助流程。", background: "跨境商品素材上线前需要同时检查内容质量、平台规则与目标市场适配。项目将分散的判断步骤组织为可复核的产品流程。", responsibilities: ["定义产品目标、用户对象与核心工作流。", "梳理素材录入、检测、建议、复核与报告流程。", "整合研究资料、功能结构与展示材料。"], actions: ["归纳跨境内容制作、平台审核与市场适配中的常见检查点。", "规划素材录入、风险提示、人工复核和报告输出模块。", "以流程图和结构化材料统一产品方案表达。"], results: ["形成产品结构与功能流程。", "沉淀素材检测与发布建议框架。", "完成检测报告结构和项目展示材料。"], skills: ["产品设计", "AIGC", "跨境电商", "流程梳理"], gallery: [], attachments: [{ title: "智选优发系统方案", kind: "system", description: "系统方案与功能流程说明。" }, { title: "项目展示材料", kind: "presentation", description: "用于沟通项目结构与工作流程。" }], links: [], featured: true, resumeVisible: true, order: 2 },

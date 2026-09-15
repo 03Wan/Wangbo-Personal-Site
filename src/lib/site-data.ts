@@ -8,13 +8,15 @@ export type SiteData = PortfolioData;
 
 const siteDataQuery = groq`{
   "profile": *[_type == "profile"][0] { ..., "resumePath": resumeFile.asset->url, "heroIllustrationUrl": heroIllustration->image.asset->url },
-  "displaySettings": *[_type == "displaySettings"][0]{showHome, showProjects, showResume, showAbout, showContact, showFooter, showGithub, showResumeDownload, zhixuanNotice{enabled, title, description, url}},
-  "siteAppearance": *[_type == "siteAppearance"][0]{themePreset, accentColor, backgroundColor, textColor, fontStyle, contentWidth, spacing, headingScale, bodyScale},
+  "displaySettings": *[_type == "displaySettings"][0]{showHome, showProjects, showBlog, showResume, showAbout, showContact, showFooter, showGithub, showResumeDownload, contactTopics, zhixuanNotice{enabled, title, description, url}},
+  "siteAppearance": *[_type == "siteAppearance"][0]{themePreset, accentColor, backgroundColor, textColor, fontStyle, contentWidth, spacing, headingScale, bodyScale, navStyle, navGlass, navSticky, navHeight, cornerStyle, shadowStyle, heroLayout, heroBackground, animationIntensity},
   "education": *[_type == "education"] | order(order asc),
   "experiences": *[_type == "experience"] | order(order asc),
   "awards": *[_type == "award"] | order(order asc),
   "skills": *[_type == "skill"] | order(order asc),
+  "coreStrengths": *[_type == "coreStrength"] | order(order asc) { "id": _id, title, description, skillCategory, order },
   "certificates": *[_type == "certificate"] | order(order asc),
+  "blogPosts": *[_type == "blogPost"] | order(order asc) { "id": _id, "slug": slug.current, title, excerpt, body, sourceType, sourceUrl, sourceAuthor, sourcePlatform, order },
   "projects": *[_type == "project"] | order(order asc) {
     "slug": slug.current, title, category, status, period, role, summary, background,
     responsibilities, actions, results, skills,
@@ -53,6 +55,8 @@ function displaySettings(raw: RawDisplaySettings | null | undefined): DisplaySet
     showFooter: raw?.showFooter ?? defaults.showFooter,
     showGithub: raw?.showGithub ?? defaults.showGithub,
     showResumeDownload: raw?.showResumeDownload ?? defaults.showResumeDownload,
+    showBlog: raw?.showBlog ?? defaults.showBlog,
+    contactTopics: list(raw?.contactTopics).length > 0 ? list(raw?.contactTopics) : defaults.contactTopics,
     zhixuanNotice: {
       enabled: raw?.zhixuanNotice?.enabled ?? defaults.zhixuanNotice.enabled,
       title: raw?.zhixuanNotice?.title || defaults.zhixuanNotice.title,
@@ -82,6 +86,7 @@ function siteAppearance(raw: Partial<SiteAppearance> | null | undefined): SiteAp
     spacing: choice(raw?.spacing, ["compact", "comfortable"], defaults.spacing),
     headingScale: choice(raw?.headingScale, ["standard", "large"], defaults.headingScale),
     bodyScale: choice(raw?.bodyScale, ["standard", "large"], defaults.bodyScale),
+    navStyle: choice(raw?.navStyle, ["solid", "transparent"], defaults.navStyle), navGlass: raw?.navGlass ?? defaults.navGlass, navSticky: raw?.navSticky ?? defaults.navSticky, navHeight: choice(raw?.navHeight, ["compact", "standard", "tall"], defaults.navHeight), cornerStyle: choice(raw?.cornerStyle, ["sharp", "soft", "round"], defaults.cornerStyle), shadowStyle: choice(raw?.shadowStyle, ["none", "subtle", "elevated"], defaults.shadowStyle), heroLayout: choice(raw?.heroLayout, ["textFirst", "photoFirst"], defaults.heroLayout), heroBackground: choice(raw?.heroBackground, ["none", "gradient"], defaults.heroBackground), animationIntensity: choice(raw?.animationIntensity, ["none", "subtle", "standard"], defaults.animationIntensity),
   };
 }
 export const getSiteData = cache(async (): Promise<SiteData> => {
@@ -95,5 +100,5 @@ export const getSiteData = cache(async (): Promise<SiteData> => {
     return portfolioDefaults;
   }
   const profile = raw.profile ? { ...portfolioDefaults.profile, ...raw.profile, resumePath: raw.profile.resumePath || undefined, heroIllustrationUrl: raw.profile.heroIllustrationUrl || portfolioDefaults.profile.heroIllustrationUrl } : portfolioDefaults.profile;
-  return { profile, displaySettings: displaySettings(raw.displaySettings), siteAppearance: siteAppearance(raw.siteAppearance), education: choose(raw.education, portfolioDefaults.education), experiences: choose(raw.experiences, portfolioDefaults.experiences), awards: choose(raw.awards, portfolioDefaults.awards), skills: choose(raw.skills, portfolioDefaults.skills), certificates: choose(raw.certificates, portfolioDefaults.certificates), projects: choose(raw.projects?.map(normalizeProject).filter((project) => project.slug), portfolioDefaults.projects) };
+  return { profile, displaySettings: displaySettings(raw.displaySettings), siteAppearance: siteAppearance(raw.siteAppearance), education: choose(raw.education, portfolioDefaults.education), experiences: choose(raw.experiences, portfolioDefaults.experiences), awards: choose(raw.awards, portfolioDefaults.awards), skills: choose(raw.skills, portfolioDefaults.skills), coreStrengths: choose(raw.coreStrengths, portfolioDefaults.coreStrengths), certificates: choose(raw.certificates, portfolioDefaults.certificates), blogPosts: choose(raw.blogPosts, portfolioDefaults.blogPosts), projects: choose(raw.projects?.map(normalizeProject).filter((project) => project.slug), portfolioDefaults.projects) };
 });
