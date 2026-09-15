@@ -16,7 +16,7 @@ const siteDataQuery = groq`{
   "skills": *[_type == "skill"] | order(order asc),
   "coreStrengths": *[_type == "coreStrength"] | order(order asc) { "id": _id, title, description, skillCategory, order },
   "certificates": *[_type == "certificate"] | order(order asc),
-  "blogPosts": *[_type == "blogPost"] | order(order asc) { "id": _id, "slug": slug.current, title, excerpt, body, "coverImageUrl": coverImage.asset->url, sourceType, sourceUrl, sourceAuthor, sourcePlatform, order },
+  "blogPosts": *[_type == "blogPost"] | order(order asc) { "id": _id, "slug": slug.current, title, excerpt, body, "coverImageUrl": coverImage.asset->url, publishedAt, sourceType, sourceUrl, sourceAuthor, sourcePlatform, order },
   "projects": *[_type == "project"] | order(order asc) {
     "slug": slug.current, title, category, status, period, role, summary, background,
     responsibilities, actions, results, skills,

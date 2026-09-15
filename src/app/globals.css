@@ -24,6 +24,7 @@ button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outlin
 ::selection { background: var(--accent); color: white; }
 
 .site-frame { min-height: 100vh; overflow: clip; }
+.back-to-top { position: fixed; right: 26px; bottom: 26px; z-index: 40; width: 42px; height: 42px; border: 1px solid var(--line-strong); border-radius: 50%; background: var(--bg); color: var(--accent); font-size: 1.25rem; cursor: pointer; box-shadow: var(--card-shadow); }
 .site-frame.font-serif { font-family: "Songti SC", "STSong", Georgia, serif; }
 .site-frame.font-serif :is(.eyebrow, .footer-kicker, .section-index, .brand-mark, .project-number, .status, .project-status, .identity-heading span) { font-family: var(--font-geist-mono), monospace; }
 main { min-height: 70vh; }

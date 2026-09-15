@@ -67,7 +67,7 @@ export type Award = { id: string; title: string; issuer?: string; date?: string;
 export type Skill = { id: string; name: string; category: string; description?: string; order: number };
 export type CoreStrength = { id: string; title: string; description: string; skillCategory: string; order: number };
 export type Certificate = { id: string; name: string; issuer?: string; date?: string; order: number };
-export type BlogPost = { id: string; slug: string; title: string; excerpt: string; body?: unknown; coverImageUrl?: string; sourceType: "original" | "external"; sourceUrl?: string; sourceAuthor?: string; sourcePlatform?: string; order: number };
+export type BlogPost = { id: string; slug: string; title: string; excerpt: string; body?: unknown; coverImageUrl?: string; publishedAt?: string; sourceType: "original" | "external"; sourceUrl?: string; sourceAuthor?: string; sourcePlatform?: string; order: number };
 
 export type DisplaySettings = {
   showHome: boolean;
