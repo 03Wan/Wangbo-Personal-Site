@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ProjectCard } from "@/components/ProjectCard";
 import { DomainMigrationNotice } from "@/components/DomainMigrationNotice";
+import { EntryExperience } from "@/components/EntryExperience";
 import { isLocale } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
 import { getSiteData } from "@/lib/site-data";
@@ -19,6 +20,7 @@ export default async function HomePage({ params }: Props) {
   const featuredProjects = projects.filter((project) => project.featured).slice(0, 3);
   const featuredAwards = awards.filter((award) => award.featured).slice(0, 3);
   return <>
+    <EntryExperience />
     <DomainMigrationNotice notice={displaySettings.zhixuanNotice} />
     <section className="hero section-shell">
       <div className="hero-copy"><div className="status-row"><span className="eyebrow">{profile.professionalTitle}</span><span className="status"><i />{profile.availability}</span></div><h1><span className="hero-title-break">{profile.valueProposition}</span></h1><span className="title-rule" aria-hidden="true" /><p className="hero-lead">{profile.intro}</p>{(displaySettings.showProjects || (displaySettings.showResumeDownload && resumePath) || displaySettings.showContact) && <div className="action-row">{displaySettings.showProjects && <Link className="button button-primary" href={`/${locale}/projects`}>查看项目案例<span>→</span></Link>}{displaySettings.showResumeDownload && resumePath && <a className="button button-ghost" href={resumePath} download>下载公开简历<span>↓</span></a>}{displaySettings.showContact && <Link className="button button-link" href={`/${locale}/contact`}>联系我<span>→</span></Link>}</div>}</div>

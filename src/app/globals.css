@@ -23,6 +23,23 @@ button, a { -webkit-tap-highlight-color: transparent; }
 button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
 ::selection { background: var(--accent); color: white; }
 
+@property --intro-reveal { syntax: "<length-percentage>"; inherits: false; initial-value: 0px; }
+.site-intro { --intro-glow-x: 0px; --intro-glow-y: 0px; position: fixed; inset: 0; z-index: 120; display: grid; place-items: center; overflow: hidden; background: radial-gradient(ellipse 56% 48% at 50% 46%, #142844 0%, #0b1626 48%, #08111f 75%, #060c15 100%); color: #f2f6fc; }
+.site-intro::before { content: ""; position: absolute; inset: 0; opacity: .24; background-image: linear-gradient(rgba(166,194,232,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(166,194,232,.035) 1px, transparent 1px); background-size: 112px 112px; mask-image: radial-gradient(circle at center, black, transparent 72%); }
+.site-intro::after { content: ""; position: absolute; width: min(74vw, 1100px); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle, rgba(73,132,216,.14) 0%, rgba(53,105,184,.075) 31%, transparent 67%); transform: translate3d(var(--intro-glow-x), var(--intro-glow-y), 0); transition: transform 850ms cubic-bezier(.22,1,.36,1); pointer-events: none; }
+.site-intro-particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }.site-intro-particles i { position: absolute; display: block; border-radius: 50%; background: #bdd6ff; box-shadow: 0 0 8px rgba(140,184,255,.22); opacity: .3; animation: intro-twinkle 9s ease-in-out infinite alternate; }.site-intro-particles i:nth-child(2n) { animation-duration: 12s; animation-delay: -4s; }.site-intro-particles i:nth-child(3n) { animation-duration: 15s; animation-delay: -8s; }
+.site-intro-skip { position: absolute; z-index: 2; top: 34px; right: clamp(24px, 5vw, 72px); border: 0; background: transparent; color: rgba(230,239,252,.48); font-family: var(--font-geist-mono), monospace; font-size: .68rem; letter-spacing: .16em; cursor: pointer; transition: color 180ms ease; }.site-intro-skip:hover { color: #f2f6fc; }
+.site-intro-content { position: relative; z-index: 1; display: grid; justify-items: center; text-align: center; }
+.site-intro-welcome { margin: 0 0 22px; color: rgba(188,213,248,.5); font-family: var(--font-geist-mono), monospace; font-size: .64rem; letter-spacing: .2em; animation: intro-rise 700ms 40ms both; }
+.site-intro-mark { position: relative; display: flex; align-items: center; justify-content: center; width: clamp(116px, 12vw, 164px); aspect-ratio: 1; border-radius: 50%; color: #f2f6fc; font-family: var(--font-geist-mono), monospace; font-size: clamp(2.6rem, 4vw, 4rem); font-weight: 520; letter-spacing: -.15em; animation: intro-rise 700ms 80ms both; }.site-intro-mark::before { content: ""; position: absolute; inset: 0; padding: 1px; border-radius: inherit; background: conic-gradient(from 218deg, transparent 0 12%, rgba(187,213,249,.62) 12% 40%, transparent 40% 54%, rgba(187,213,249,.28) 54% 81%, transparent 81%); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; }.site-intro-mark::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(circle at 50% 2%, #b7d4ff 0 2px, transparent 3px); filter: drop-shadow(0 0 4px rgba(161,202,255,.72)); animation: intro-mark-orbit 14s linear infinite; }.site-intro-mark span { position: relative; z-index: 1; }.site-intro-mark span + span { color: #9ac2ff; }
+.site-intro-name { margin: 28px 0 0; font-family: var(--font-geist-mono), monospace; font-size: .78rem; letter-spacing: .22em; animation: intro-rise 700ms 180ms both; }.site-intro-tagline { margin: 10px 0 0; color: rgba(230,239,252,.58); font-size: .88rem; letter-spacing: .025em; animation: intro-rise 700ms 260ms both; }
+.site-intro-enter { position: relative; display: inline-grid; place-items: center; width: 142px; height: 142px; margin-top: clamp(52px, 9vh, 92px); border: 0; background: transparent; color: #f2f6fc; font-family: var(--font-geist-mono), monospace; font-size: .74rem; letter-spacing: .17em; cursor: pointer; animation: intro-rise 700ms 360ms both; }.site-intro-enter-label { position: relative; z-index: 1; }.site-intro-enter b { margin-left: 10px; color: #9ac2ff; font-size: 1rem; font-weight: 400; transition: transform 250ms ease; }
+.site-intro-orbit { position: absolute; inset: 9px; border: 1px solid rgba(202,222,249,.18); border-radius: 50%; transform: scale(.72); opacity: 0; transition: transform 360ms ease, opacity 360ms ease, border-color 360ms ease; }.site-intro-orbit i { position: absolute; top: -3px; left: 50%; width: 5px; height: 5px; border-radius: 50%; background: #a9cbff; box-shadow: 0 0 10px #a9cbff; }
+.site-intro-enter:hover .site-intro-orbit, .site-intro-enter:focus-visible .site-intro-orbit { opacity: 1; transform: scale(1); border-color: rgba(202,222,249,.7); animation: intro-orbit 5s linear infinite; }.site-intro-enter:hover .site-intro-enter-label, .site-intro-enter:focus-visible .site-intro-enter-label { transform: scale(1.06); }.site-intro-enter:hover b { display: inline-block; transform: translateX(4px); }
+.site-intro.is-exiting { pointer-events: none; animation: intro-enter-world 1050ms cubic-bezier(.65,0,.35,1) forwards; mask-image: radial-gradient(circle at 50% 50%, transparent var(--intro-reveal), #000 calc(var(--intro-reveal) + 1px)); -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent var(--intro-reveal), #000 calc(var(--intro-reveal) + 1px)); }.site-intro.is-exiting .site-intro-content, .site-intro.is-exiting .site-intro-particles, .site-intro.is-exiting .site-intro-skip { opacity: 0; transition: opacity 170ms ease; }.site-intro.is-exiting .site-intro-orbit { opacity: 1; transform: scale(1.12); animation: none; }
+html.intro-arrived .hero-copy, html.intro-arrived .identity-panel, html.intro-arrived .site-header { animation: intro-home-arrive 680ms cubic-bezier(.22,1,.36,1) both; }html.intro-arrived .identity-panel { animation-delay: 70ms; }html.intro-arrived .hero-copy { animation-delay: 130ms; }
+@keyframes intro-rise { from { opacity: 0; transform: translateY(16px); filter: blur(5px); } to { opacity: 1; transform: none; filter: none; } }@keyframes intro-twinkle { 0% { opacity: .16; } 55% { opacity: .58; } 100% { opacity: .24; } }@keyframes intro-mark-orbit { to { rotate: 1turn; } }@keyframes intro-orbit { to { rotate: 1turn; } }@keyframes intro-enter-world { from { --intro-reveal: 0px; } to { --intro-reveal: 150vmax; } }@keyframes intro-home-arrive { from { opacity: .35; transform: translateY(12px); filter: blur(4px); } to { opacity: 1; transform: none; filter: none; } }
+
 .site-frame { min-height: 100vh; overflow: clip; }
 .back-to-top { position: fixed; right: 26px; bottom: 26px; z-index: 40; width: 42px; height: 42px; border: 1px solid var(--line-strong); border-radius: 50%; background: var(--bg); color: var(--accent); font-size: 1.25rem; cursor: pointer; box-shadow: var(--card-shadow); }
 .site-frame.font-serif { font-family: "Songti SC", "STSong", Georgia, serif; }
@@ -345,6 +362,11 @@ main { min-height: 70vh; }
 }
 
 @media (max-width: 520px) {
+  .site-intro-skip { top: 22px; right: 22px; }
+  .site-intro-mark { width: 112px; }
+  .site-intro-enter { width: 128px; height: 128px; margin-top: 48px; }
+  .site-intro::before { background-size: 72px 72px; }
+  .site-intro-particles i:nth-child(n+7) { display: none; }
   .hero-copy { padding-top: 0; }
   .status-row { margin-bottom: 24px; }
   .hero h1 { font-size: 1.86rem; line-height: 1.28; letter-spacing: -.04em; }
@@ -380,4 +402,8 @@ main { min-height: 70vh; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   .scroll-reveal { opacity: 1; transform: none; }
+  .site-intro-particles { display: none; }
+  .site-intro.is-exiting { animation-duration: 360ms; mask-image: none; -webkit-mask-image: none; opacity: 0; transition: opacity 300ms ease; }
+  .site-intro-mark, .site-intro-name, .site-intro-tagline, .site-intro-enter { animation: none; }
+  html.intro-arrived .hero-copy, html.intro-arrived .identity-panel, html.intro-arrived .site-header { animation: none; }
 }
