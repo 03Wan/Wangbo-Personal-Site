@@ -125,7 +125,7 @@ export default function FriendshipPage() {
             <div className={styles.card}>
               <div className={styles.field}>
                 <label htmlFor="me">你的名字</label>
-                <input id="me" value={me} onChange={(e) => setMe(e.target.value)} placeholder="例如：姚闻月" maxLength={12} />
+                <input id="me" value={me} onChange={(e) => setMe(e.target.value)} placeholder="例如：某某某" maxLength={12} />
               </div>
 
               <div className={styles.field}>
