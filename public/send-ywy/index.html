@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1930">
+  <meta name="description" content="一封寄给姚闻月的中秋月亮信，点亮六个月相，收下王波的祝福。">
+  <title>月亮邮局｜寄给姚闻月的一封信</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230b1930'/%3E%3Ccircle cx='32' cy='30' r='20' fill='%23ffe4aa'/%3E%3Ccircle cx='23' cy='23' r='18' fill='%230b1930'/%3E%3Ccircle cx='47' cy='14' r='2' fill='%23ffe4aa'/%3E%3C/svg%3E">
+  <style>
+    :root{color-scheme:dark;--navy:#0b1930;--ink:#17233c;--gold:#e6bf80;--cream:#fff1d2;--paper:#fff0d5;--serif:"Songti SC","STSong","Noto Serif CJK SC","Source Han Serif SC",serif;--sans:"PingFang SC","Microsoft YaHei",system-ui,sans-serif}
+    *{box-sizing:border-box}[hidden]{display:none!important}html{scroll-behavior:smooth}body{margin:0;background:var(--navy);color:var(--cream);font-family:var(--sans);overflow-x:hidden}button{font:inherit}button:focus-visible{outline:3px solid #fff3cb;outline-offset:5px}button:disabled{cursor:default}
+    .scene{position:fixed;inset:0;z-index:-2;background:linear-gradient(180deg,rgba(5,14,31,.1) 0%,rgba(5,14,31,.18) 48%,rgba(5,14,31,.54) 100%),url('/send-ywy/moonlit-lake.png') center top/cover no-repeat}
+    .scene:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,14,31,.43),transparent 32%,transparent 68%,rgba(5,14,31,.35))}
+    .page{width:min(100%,1180px);margin:auto;padding:24px clamp(20px,5vw,72px) 65px}.brand{display:flex;justify-content:space-between;align-items:center;gap:20px;color:#f7dca8;text-shadow:0 2px 12px #081327;font-size:.78rem;letter-spacing:.32em}.brand strong{font-weight:500}.brand span:last-child{font-family:Georgia,serif;font-size:.65rem;letter-spacing:.28em}
+    .hero{min-height:min(760px,94svh);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:64px 0 80px}.eyebrow{font-size:.76rem;letter-spacing:.48em;color:#f4d59d;text-shadow:0 2px 10px #07132a}.rule{display:flex;align-items:center;gap:16px}.rule:before,.rule:after{content:"";width:62px;height:1px;background:linear-gradient(90deg,transparent,#f1d49e)}.rule:after{transform:rotate(180deg)}h1,h2,p{margin-top:0}.hero h1{font:400 clamp(3.6rem,9vw,7.2rem)/1.2 var(--serif);letter-spacing:.08em;margin:225px 0 14px;color:#ffeac1;text-shadow:0 4px 24px #10203c,0 0 30px rgba(255,224,155,.3)}.hero .address{font:400 clamp(1.13rem,2.6vw,1.65rem)/1.75 var(--serif);letter-spacing:.2em;text-shadow:0 2px 12px #071327;margin:0 0 32px}.primary{border:1px solid #fff7dc;background:linear-gradient(135deg,#fff6df,#f9dba7 62%,#fff0d1);color:#34243a;border-radius:999px;min-width:216px;padding:15px 30px;box-shadow:0 0 30px rgba(255,228,162,.4),inset 0 1px 0 #fff;cursor:pointer;transition:transform .2s,box-shadow .2s}.primary:hover{transform:translateY(-3px);box-shadow:0 0 44px rgba(255,228,162,.58)}.primary span{margin-left:16px}.small-note{margin-top:24px;color:#f6dfb5;font-family:var(--serif);letter-spacing:.22em;font-size:.82rem;text-shadow:0 2px 12px #061227}
+    .journey{max-width:1050px;margin:0 auto;scroll-margin-top:40px}.journey[hidden],.final[hidden],.phase-message[hidden],.next[hidden]{display:none}.section-heading{text-align:center;margin:12px 0 28px}.section-heading .overline{font:italic .64rem Georgia,serif;letter-spacing:.32em;color:#e8c38a}.section-heading h2{font:400 clamp(2.2rem,5vw,3.8rem)/1.25 var(--serif);letter-spacing:.16em;color:#ffe6b5;margin:8px 0}.section-heading p{font:400 .95rem/1.8 var(--serif);letter-spacing:.15em;color:#f7e2be}
+    .envelope{width:min(100%,700px);margin:0 auto 58px;padding:10px;background:rgba(255,241,215,.96);color:var(--ink);box-shadow:0 14px 45px #040d1e82,0 0 0 1px #d5ad75;transform:rotate(-1.2deg);position:relative}.envelope-inner{border:1px solid #d5ad75;min-height:245px;padding:34px clamp(22px,5vw,58px);display:flex;flex-direction:column;justify-content:center;position:relative;background:linear-gradient(125deg,#fff9e9,#f6e4c7)}.envelope-inner:before{content:"月亮邮局 · MOON POST OFFICE";position:absolute;right:26px;top:22px;color:#9d754d;font:italic .55rem Georgia,serif;letter-spacing:.15em}.mail-row{display:grid;grid-template-columns:64px 1fr;gap:13px;margin:6px 0;font:400 clamp(.95rem,2vw,1.2rem)/1.55 var(--serif);letter-spacing:.14em}.mail-row span:first-child{color:#8d6744}.stamp{position:absolute;right:34px;bottom:30px;width:75px;height:75px;border:1px dashed #aa8257;display:grid;place-items:center;transform:rotate(10deg);font:400 2rem var(--serif);color:#8f704b}.postmark{border-top:1px solid #ceb18b;padding-top:15px;margin-top:16px;font:400 .86rem/1.65 var(--serif);letter-spacing:.1em;max-width:480px}
+    .phases{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;align-items:start;margin:30px auto 18px}.phase{border:0;background:none;color:#f5d7a4;cursor:pointer;display:flex;align-items:center;flex-direction:column;gap:12px;padding:8px 2px 12px;opacity:.46;transition:opacity .3s,transform .3s}.phase:hover:not(:disabled){transform:translateY(-4px)}.phase:disabled{opacity:.33}.phase.available,.phase.lit{opacity:1}.phase.available .moon{box-shadow:0 0 0 2px #fce0a2,0 0 22px #f4d59970}.phase.lit .moon{box-shadow:0 0 22px #f4d59980}.moon{width:clamp(60px,8vw,86px);height:86px;max-height:clamp(60px,8vw,86px);border-radius:50%;display:block;background-image:url('/send-ywy/moon-phases-reference.png');background-repeat:no-repeat;background-size:941px 1672px;filter:drop-shadow(0 0 10px #eec8838f);transition:transform .3s}.phase:hover:not(:disabled) .moon{transform:scale(1.07)}.phase:nth-child(1) .moon{background-position:-84px -990px}.phase:nth-child(2) .moon{background-position:-218px -990px}.phase:nth-child(3) .moon{background-position:-354px -990px}.phase:nth-child(4) .moon{background-position:-493px -990px}.phase:nth-child(5) .moon{background-position:-633px -990px}.phase:nth-child(6) .moon{background-position:-771px -990px}.phase-name{font:400 clamp(.9rem,2vw,1.32rem) var(--serif);letter-spacing:.16em}.phase-index{font:italic .56rem Georgia,serif;letter-spacing:.2em;color:#e3bb7a}.progress{display:flex;justify-content:center;gap:8px;margin:8px 0 25px}.progress i{display:block;width:27px;height:2px;background:#dbc79b55;transition:background .3s}.progress i.active{background:#ffe5a9;box-shadow:0 0 12px #ffe5a9}.phase-message{max-width:680px;min-height:180px;margin:0 auto 28px;text-align:center;padding:27px 26px;background:rgba(7,20,42,.75);border:1px solid #e8c08773;box-shadow:0 10px 30px #06102063;backdrop-filter:blur(10px)}.phase-message .label{color:#d8b57f;letter-spacing:.3em;font-size:.68rem}.phase-message p{font:400 clamp(1.15rem,2.5vw,1.65rem)/1.9 var(--serif);letter-spacing:.11em;margin:16px 0 0}.continue{display:block;margin:16px auto 0;padding:8px 5px;background:none;border:0;border-bottom:1px solid #d9bd8a;color:#f6dbac;cursor:pointer;font:400 .9rem var(--serif)}.continue:hover{color:#fff6dc}.next{text-align:center;margin:0 0 70px}.next button{font:400 .95rem var(--serif)}
+    .final{max-width:760px;margin:30px auto 55px;scroll-margin-top:35px;text-align:center}.final .section-heading{margin-bottom:28px}.letter{padding:clamp(32px,7vw,68px);background:linear-gradient(145deg,#fff8e8,#eed7b6);color:#2b3142;text-align:left;box-shadow:0 16px 60px #06101ea3;border:1px solid #ffefca;position:relative}.letter:before{content:"✦";position:absolute;top:26px;right:35px;color:#b7894d}.letter .salutation{font:400 1.35rem var(--serif);letter-spacing:.13em;margin:0 0 30px}.letter p{font:400 clamp(1rem,2.2vw,1.15rem)/2.1 var(--serif);letter-spacing:.09em;margin-bottom:17px}.letter .signature{text-align:right;margin:22px 0 0;color:#6c513e}.greeting{font:400 clamp(2.35rem,6vw,4.6rem)/1.3 var(--serif);letter-spacing:.14em;color:#fff0c7;text-shadow:0 0 28px #ffe3a86b;margin:45px 0 18px}.easter{margin:0 auto 45px;font:400 clamp(.9rem,2vw,1.1rem)/2 var(--serif);letter-spacing:.13em;color:#f5ddb1;text-shadow:0 1px 10px #09142c}.restart{background:none;border:1px solid #d9bd8a;color:#f3d9aa;border-radius:999px;padding:11px 22px;cursor:pointer}.restart:hover{background:#fff2d51a}.footer{text-align:center;font:italic .65rem Georgia,serif;letter-spacing:.3em;color:#e6c89a99}
+    @media(max-width:690px){.page{padding:18px 15px 42px}.brand span:last-child{font-size:.49rem}.hero{min-height:90svh;padding:30px 0 35px;justify-content:flex-end}.hero h1{margin:0 0 18px;font-size:clamp(3.25rem,13vw,5rem)}.hero .address{font-size:1.08rem;line-height:1.85;max-width:15em;letter-spacing:.13em}.scene{background-position:76% top}.scene:after{background:linear-gradient(180deg,#06132b22 0%,#06132b33 30%,#06132bdd 75%,#06132bee 100%)}.journey{padding-top:15px}.envelope{margin-bottom:48px}.envelope-inner{min-height:225px;padding:40px 18px 28px}.envelope-inner:before{right:18px;top:17px;font-size:.43rem}.stamp{width:53px;height:53px;right:17px;bottom:25px;font-size:1.4rem}.postmark{padding-right:64px}.phases{grid-template-columns:repeat(3,1fr);gap:12px 4px;margin-top:22px}.phase{gap:7px}.moon{width:76px;height:76px;max-height:76px}.phase-name{font-size:1.03rem}.phase-index{font-size:.5rem}.phase-message{margin:8px 5px 26px}.letter{margin:0 5px}.greeting{margin-top:35px}}
+    @media(max-width:390px){.moon{width:65px;height:65px;max-height:65px}.phase-name{font-size:.93rem}.mail-row{grid-template-columns:53px 1fr;font-size:.9rem}.postmark{font-size:.72rem}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <div class="scene" aria-hidden="true"></div>
+  <main class="page">
+    <header class="brand"><strong>月亮邮局 · 中秋特快</strong><span>MOON POST OFFICE</span></header>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="eyebrow rule">农历八月十五 · 月光正好</div>
+      <h1 id="hero-title">今晚的月色很好</h1>
+      <p class="address">姚闻月（小老大），<br>你收到一封来自月亮的信。</p>
+      <button class="primary" id="open-letter" type="button">拆开信件 <span aria-hidden="true">›</span></button>
+      <p class="small-note">有些话，适合在月光下寄出。</p>
+    </section>
+    <section class="journey" id="journey" aria-labelledby="journey-title" hidden>
+      <div class="section-heading"><div class="overline">MOON POST OFFICE</div><h2 id="journey-title">月亮邮局</h2><p>一封信，六个月相，六句只给你的祝福。</p></div>
+      <div class="envelope" aria-label="寄给姚闻月的信封"><div class="envelope-inner"><div class="mail-row"><span>收件人</span><span>姚闻月（小老大）</span></div><div class="mail-row"><span>寄件人</span><span>王波</span></div><div class="mail-row"><span>邮戳</span><span>中秋 · 月亮邮局</span></div><div class="postmark">此信有效期：从今晚，到以后每一次抬头看月亮。</div><div class="stamp" aria-hidden="true">月</div></div></div>
+      <div class="section-heading"><h2>点亮今夜的月相</h2><p id="phase-instruction">从第一轮月光开始，依次点亮它们。</p></div>
+      <div class="phases" id="phases" role="group" aria-label="六个月相祝福">
+        <button class="phase available" type="button" data-index="0" aria-label="点亮第一轮月相，平安"><span class="moon" aria-hidden="true"></span><span class="phase-name">平安</span><span class="phase-index">01 / 06</span></button>
+        <button class="phase" type="button" data-index="1" aria-label="点亮第二轮月相，开心" disabled><span class="moon" aria-hidden="true"></span><span class="phase-name">开心</span><span class="phase-index">02 / 06</span></button>
+        <button class="phase" type="button" data-index="2" aria-label="点亮第三轮月相，顺利" disabled><span class="moon" aria-hidden="true"></span><span class="phase-name">顺利</span><span class="phase-index">03 / 06</span></button>
+        <button class="phase" type="button" data-index="3" aria-label="点亮第四轮月相，自由" disabled><span class="moon" aria-hidden="true"></span><span class="phase-name">自由</span><span class="phase-index">04 / 06</span></button>
+        <button class="phase" type="button" data-index="4" aria-label="点亮第五月相，被爱" disabled><span class="moon" aria-hidden="true"></span><span class="phase-name">被爱</span><span class="phase-index">05 / 06</span></button>
+        <button class="phase" type="button" data-index="5" aria-label="点亮第六月相，团圆" disabled><span class="moon" aria-hidden="true"></span><span class="phase-name">团圆</span><span class="phase-index">06 / 06</span></button>
+      </div>
+      <div class="progress" id="progress" aria-label="已点亮零个月相"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="phase-message" id="phase-message" aria-live="polite" hidden><span class="label" id="message-label"></span><p id="message-text"></p><button class="continue" id="continue" type="button" hidden>点亮下一轮月相 ↑</button></div>
+      <div class="next" id="next" hidden><button class="primary" type="button" id="read-final">读最后一封信 <span aria-hidden="true">›</span></button></div>
+    </section>
+    <section class="final" id="final" aria-labelledby="final-title" hidden>
+      <div class="section-heading"><div class="overline">THE LAST LETTER</div><h2 id="final-title">满月了，信也到了。</h2></div>
+      <article class="letter"><p class="salutation">姚闻月，小老大中秋快乐！</p><p>内心在告诉我，王波要给姚闻月送上一个及时的中秋祝福，我想了很久不知道是否合适，而我又该怎么祝福你，哈哈哈哈哈不太想说大家都会说的话。</p><p>那我就希望你以后不只是中秋这一天，你都能有很多值得开心的小事。想做的事情能慢慢实现，遇到的烦恼都能顺利解决，累的时候有人惦记，开心的时候也有人愿意认真听你分享。</p><p>也希望你一直做那个有自己想法、有点可爱，又很特别的姚闻月。</p><p>认识你这件事，对我来说一直是一件挺幸运的事情。因为有你的出现，好像也会多一点值得记住的地方。</p><p>月亮每年都会圆，但不是每一年身边的人都一样。希望我们依旧！</p><p>所以今年想认真和你说一句：</p><p>中秋快乐，小老大。</p><p>愿你平安，顺遂，自在，开心。</p><p>也愿以后还有很多个节日，我都能有机会对你说一句——节日快乐。</p></article>
+      <div class="greeting">中秋快乐 🌕</div>
+      <p class="easter">月亮一年会圆很多次，<br>所以祝福也不只今天有效。</p>
+      <button class="restart" id="restart" type="button">再看一遍月亮</button>
+    </section>
+    <footer class="footer">A LETTER FROM THE MOON · FOR 姚闻月</footer>
+  </main>
+  <script>
+    (() => {
+      const blessings = [
+        ['平安','愿你每一次出发，都能平安抵达；每一个夜晚，都能安心入梦。'],
+        ['开心','愿你的笑意常常有来由，也能为一点小事，真心地开心。'],
+        ['顺利','愿你认真期待的事，沿着自己的节奏，慢慢有好消息。'],
+        ['自由','愿你有选择的勇气，也有按自己喜欢的方式生活的自由。'],
+        ['被爱','愿你付出的真心被珍惜，偶尔疲惫时，也有人温柔地接住你。'],
+        ['团圆','愿你所念的人都安好，想见的时候有相聚，想念的时候有月光。']
+      ];
+      const open = document.getElementById('open-letter');
+      const journey = document.getElementById('journey');
+      const phaseButtons = [...document.querySelectorAll('.phase')];
+      const progress = document.getElementById('progress');
+      const bars = [...progress.children];
+      const message = document.getElementById('phase-message');
+      const label = document.getElementById('message-label');
+      const words = document.getElementById('message-text');
+      const next = document.getElementById('next');
+      const continueButton = document.getElementById('continue');
+      const final = document.getElementById('final');
+      let lit = 0;
+      const moveTo = (element) => element.scrollIntoView({behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant':'smooth',block:'start'});
+      open.addEventListener('click', () => {journey.hidden = false; open.setAttribute('aria-expanded','true'); moveTo(journey); setTimeout(() => phaseButtons[0].focus({preventScroll:true}), 500)});
+      phaseButtons.forEach((button,index) => button.addEventListener('click',() => {
+        if(index !== lit) return;
+        const [name, blessing] = blessings[index];
+        button.classList.remove('available'); button.classList.add('lit'); button.disabled = true;
+        lit++; bars[index].classList.add('active'); progress.setAttribute('aria-label',`已点亮${lit}个月相，共六个`);
+        label.textContent = `第 ${lit} 轮月光 · ${name}`; words.textContent = blessing; message.hidden = false;
+        if(lit < phaseButtons.length){const upcoming=phaseButtons[lit]; upcoming.disabled=false; upcoming.classList.add('available'); continueButton.hidden=false; document.getElementById('phase-instruction').textContent='继续点亮下一轮月光。'}
+        else {continueButton.hidden=true;next.hidden = false; document.getElementById('phase-instruction').textContent='月亮圆了，最后一封信已经送到。';}
+        moveTo(message);
+      }));
+      continueButton.addEventListener('click',()=>{if(lit<phaseButtons.length)phaseButtons[lit].click()});
+      document.getElementById('read-final').addEventListener('click',() => {final.hidden=false; moveTo(final)});
+      document.getElementById('restart').addEventListener('click',() => {lit=0;journey.hidden=true;final.hidden=true;message.hidden=true;next.hidden=true;continueButton.hidden=true;bars.forEach(b=>b.classList.remove('active'));phaseButtons.forEach((b,i)=>{b.disabled=i!==0;b.classList.toggle('available',i===0);b.classList.remove('lit')});progress.setAttribute('aria-label','已点亮零个月相');document.getElementById('phase-instruction').textContent='从第一轮月光开始，依次点亮它们。';open.setAttribute('aria-expanded','false');moveTo(document.querySelector('.hero'));open.focus({preventScroll:true})});
+      if(document.modelContext?.registerTool){
+        const register=(tool)=>{try{Promise.resolve(document.modelContext.registerTool(tool)).catch(()=>{})}catch{}};
+        register({name:'start_moon_letter',title:'拆开月亮信',description:'打开寄给姚闻月的信并显示月相祝福。',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:false},execute(){open.click();return {opened:!journey.hidden}}});
+        register({name:'light_next_moon_phase',title:'点亮下一轮月相',description:'依次点亮一轮月相，显示对应祝福。',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:false},execute(){if(journey.hidden)throw Error('请先拆开信件');if(lit>=phaseButtons.length)throw Error('六个月相已全部点亮');phaseButtons[lit].click();return {lit,total:6,blessing:words.textContent}}});
+        register({name:'read_final_moon_letter',title:'阅读最后一封信',description:'在六个月相全部点亮后，阅读王波写给姚闻月的信。',inputSchema:{type:'object',properties:{},additionalProperties:false},annotations:{readOnlyHint:false},execute(){if(lit<6)throw Error('请先点亮全部六个月相');document.getElementById('read-final').click();return {opened:!final.hidden}}});
+      }
+    })();
+  </script>
+</body>
+</html>
