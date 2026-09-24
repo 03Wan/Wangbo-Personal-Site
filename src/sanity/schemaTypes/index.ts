@@ -57,16 +57,43 @@ const coreStrength = defineType({ name: "coreStrength", title: "核心能力卡�
 const blogPost = defineType({ name: "blogPost", title: "博客文章", type: "document", fields: [defineField({ name: "title", title: "标题", type: "string", validation: (rule) => rule.required() }), defineField({ name: "slug", title: "网址标识", type: "slug", options: { source: "title" }, validation: (rule) => rule.required() }), text("excerpt", "摘要"), defineField({ name: "coverImage", title: "封面图片", type: "image", options: { hotspot: true } }), defineField({ name: "body", title: "正文（支持富文本）", type: "array", of: [defineArrayMember({ type: "block", styles: [{ title: "正文", value: "normal" }, { title: "标题 2", value: "h2" }, { title: "标题 3", value: "h3" }], lists: [{ title: "项目符号", value: "bullet" }, { title: "编号", value: "number" }], marks: { decorators: [{ title: "加粗", value: "strong" }, { title: "斜体", value: "em" }], annotations: [{ name: "link", title: "链接", type: "object", fields: [defineField({ name: "href", title: "网址", type: "url" })] }] } }), defineArrayMember({ type: "image", options: { hotspot: true } })] }), defineField({ name: "publishedAt", title: "发布时间", type: "datetime" }), defineField({ name: "sourceType", title: "内容类型", type: "string", options: { list: [{ title: "原创", value: "original" }, { title: "外部分享", value: "external" }] }, initialValue: "original" }), defineField({ name: "sourceUrl", title: "外部内容链接", type: "url" }), defineField({ name: "sourceAuthor", title: "原作者", type: "string" }), defineField({ name: "sourcePlatform", title: "来源平台", type: "string" }), mediaReferences(), order], preview: { select: { title: "title", subtitle: "sourcePlatform", media: "coverImage" } } });
 const certificate = defineType({ name: "certificate", title: "证书", type: "document", fields: [defineField({ name: "name", title: "证书名称", type: "string" }), defineField({ name: "issuer", title: "颁发方", type: "string" }), defineField({ name: "date", title: "时间", type: "string" }), mediaReferences(), order], preview: { select: { title: "name", subtitle: "date" } } });
 
-const specialPages = defineType({
-  name: "specialPages",
-  title: "临时页面访问控制",
-  type: "document",
-  initialValue: { friendshipEnabled: true, sendYwyEnabled: true },
+const managedRoute = defineType({
+  name: "managedRoute",
+  title: "受控路由",
+  type: "object",
   fields: [
-    defineField({ name: "friendshipEnabled", title: "允许访问 /friendship", type: "boolean", initialValue: true, description: "关闭并发布后，页面地址返回 404。" }),
-    defineField({ name: "sendYwyEnabled", title: "允许访问 /send-ywy", type: "boolean", initialValue: true, description: "同时控制 /zh/send-ywy 和 /send-ywy/ 下的图片等素材。关闭并发布后返回 404。" }),
+    defineField({
+      name: "path",
+      title: "路由地址",
+      type: "string",
+      description: "例如 /wb。填写路径，不要填写域名、参数或 *。该地址及其下级地址一起受控。",
+      validation: (rule) => rule.required().custom((value) => {
+        if (typeof value !== "string") return true;
+        const path = value.replace(/\/+$/, "");
+        if (!path.startsWith("/") || path === "" || path.includes("//") || /[?#*\s]/.test(path)) return "请输入 /wb 这样的路由地址。";
+        if (/^\/(?:_next|admin|studio)(?:\/|$)/.test(path) || /^\/zh(?:\/(?:about|projects|resume|contact|blog|works)(?:\/|$)|$)/.test(path) || /^\/[^/]+\.[^/]+$/.test(path)) return "此地址属于网站核心页面或公共文件，不能在这里管理。";
+        if (path === "/zh/send-ywy") return "请填写 /send-ywy；它也会控制 /zh/send-ywy。";
+        return true;
+      }),
+    }),
+    defineField({ name: "enabled", title: "允许访问", type: "boolean", initialValue: false, description: "新路由默认隐藏。开启并发布后可访问；关闭时此路由及其下级地址返回 404。" }),
   ],
-  preview: { prepare: () => ({ title: "临时页面访问控制" }) },
+  preview: {
+    select: { title: "path", enabled: "enabled" },
+    prepare: ({ title, enabled }) => ({ title: title || "未填写路由", subtitle: enabled === true ? "开放中" : "已隐藏" }),
+  },
 });
 
-export const schemaTypes = [attachment, galleryItem, projectLink, mediaAsset, legacyProcessStep, legacyProjectContent, profile, displaySettings, siteAppearance, specialPages, project, education, experience, award, skill, coreStrength, blogPost, certificate];
+const specialPages = defineType({
+  name: "specialPages",
+  title: "路由访问管理",
+  type: "document",
+  description: "新增网站页面仍需先部署。在这里添加地址并发布，就能控制该页面是否允许直接访问。",
+  initialValue: { routes: [{ _key: "friendship", _type: "managedRoute", path: "/friendship", enabled: true }, { _key: "send-ywy", _type: "managedRoute", path: "/send-ywy", enabled: true }] },
+  fields: [
+    defineField({ name: "routes", title: "受控路由", type: "array", of: [defineArrayMember({ type: "managedRoute" })] }),
+  ],
+  preview: { prepare: () => ({ title: "路由访问管理" }) },
+});
+
+export const schemaTypes = [attachment, galleryItem, projectLink, mediaAsset, legacyProcessStep, legacyProjectContent, profile, displaySettings, siteAppearance, managedRoute, specialPages, project, education, experience, award, skill, coreStrength, blogPost, certificate];

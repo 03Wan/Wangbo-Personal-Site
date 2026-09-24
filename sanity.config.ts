@@ -26,9 +26,9 @@ export default defineConfig({
               .id('siteAppearance')
               .child(S.document().title('网站样式设置').schemaType('siteAppearance').documentId('siteAppearance')),
             S.listItem()
-              .title('临时页面访问控制')
+              .title('路由访问管理')
               .id('specialPages')
-              .child(S.document().title('临时页面访问控制').schemaType('specialPages').documentId('specialPages')),
+              .child(S.document().title('路由访问管理').schemaType('specialPages').documentId('specialPages')),
             ...S.documentTypeListItems().filter((item) => !['displaySettings', 'siteAppearance', 'specialPages'].includes(item.getId() || '')),
           ]),
     }),
