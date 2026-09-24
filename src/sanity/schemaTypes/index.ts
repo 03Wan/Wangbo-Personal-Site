@@ -57,4 +57,16 @@ const coreStrength = defineType({ name: "coreStrength", title: "核心能力卡�
 const blogPost = defineType({ name: "blogPost", title: "博客文章", type: "document", fields: [defineField({ name: "title", title: "标题", type: "string", validation: (rule) => rule.required() }), defineField({ name: "slug", title: "网址标识", type: "slug", options: { source: "title" }, validation: (rule) => rule.required() }), text("excerpt", "摘要"), defineField({ name: "coverImage", title: "封面图片", type: "image", options: { hotspot: true } }), defineField({ name: "body", title: "正文（支持富文本）", type: "array", of: [defineArrayMember({ type: "block", styles: [{ title: "正文", value: "normal" }, { title: "标题 2", value: "h2" }, { title: "标题 3", value: "h3" }], lists: [{ title: "项目符号", value: "bullet" }, { title: "编号", value: "number" }], marks: { decorators: [{ title: "加粗", value: "strong" }, { title: "斜体", value: "em" }], annotations: [{ name: "link", title: "链接", type: "object", fields: [defineField({ name: "href", title: "网址", type: "url" })] }] } }), defineArrayMember({ type: "image", options: { hotspot: true } })] }), defineField({ name: "publishedAt", title: "发布时间", type: "datetime" }), defineField({ name: "sourceType", title: "内容类型", type: "string", options: { list: [{ title: "原创", value: "original" }, { title: "外部分享", value: "external" }] }, initialValue: "original" }), defineField({ name: "sourceUrl", title: "外部内容链接", type: "url" }), defineField({ name: "sourceAuthor", title: "原作者", type: "string" }), defineField({ name: "sourcePlatform", title: "来源平台", type: "string" }), mediaReferences(), order], preview: { select: { title: "title", subtitle: "sourcePlatform", media: "coverImage" } } });
 const certificate = defineType({ name: "certificate", title: "证书", type: "document", fields: [defineField({ name: "name", title: "证书名称", type: "string" }), defineField({ name: "issuer", title: "颁发方", type: "string" }), defineField({ name: "date", title: "时间", type: "string" }), mediaReferences(), order], preview: { select: { title: "name", subtitle: "date" } } });
 
-export const schemaTypes = [attachment, galleryItem, projectLink, mediaAsset, legacyProcessStep, legacyProjectContent, profile, displaySettings, siteAppearance, project, education, experience, award, skill, coreStrength, blogPost, certificate];
+const specialPages = defineType({
+  name: "specialPages",
+  title: "临时页面访问控制",
+  type: "document",
+  initialValue: { friendshipEnabled: true, sendYwyEnabled: true },
+  fields: [
+    defineField({ name: "friendshipEnabled", title: "允许访问 /friendship", type: "boolean", initialValue: true, description: "关闭并发布后，页面地址返回 404。" }),
+    defineField({ name: "sendYwyEnabled", title: "允许访问 /send-ywy", type: "boolean", initialValue: true, description: "同时控制 /zh/send-ywy 和 /send-ywy/ 下的图片等素材。关闭并发布后返回 404。" }),
+  ],
+  preview: { prepare: () => ({ title: "临时页面访问控制" }) },
+});
+
+export const schemaTypes = [attachment, galleryItem, projectLink, mediaAsset, legacyProcessStep, legacyProjectContent, profile, displaySettings, siteAppearance, specialPages, project, education, experience, award, skill, coreStrength, blogPost, certificate];
