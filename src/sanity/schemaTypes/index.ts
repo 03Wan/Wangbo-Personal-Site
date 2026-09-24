@@ -92,6 +92,9 @@ const specialPages = defineType({
   initialValue: { routes: [{ _key: "friendship", _type: "managedRoute", path: "/friendship", enabled: true }, { _key: "send-ywy", _type: "managedRoute", path: "/send-ywy", enabled: true }] },
   fields: [
     defineField({ name: "routes", title: "受控路由", type: "array", of: [defineArrayMember({ type: "managedRoute" })] }),
+    // Keep legacy values recognized for older deployments without showing obsolete controls.
+    defineField({ name: "friendshipEnabled", title: "旧版友情页面开关", type: "boolean", hidden: true, readOnly: true }),
+    defineField({ name: "sendYwyEnabled", title: "旧版月亮信开关", type: "boolean", hidden: true, readOnly: true }),
   ],
   preview: { prepare: () => ({ title: "路由访问管理" }) },
 });
